@@ -7,7 +7,7 @@ namespace Umber\Common\Prototype\Column;
 /**
  * Object becomes aware of identity.
  *
- * @see IdentityAwareInterface
+ * @mixin IdentityAwareInterface
  */
 trait IdentityAwareTrait
 {
@@ -17,7 +17,7 @@ trait IdentityAwareTrait
     /**
      * {@inheritdoc}
      *
-     * @see IdentityAwareInterface
+     * @see IdentityAwareInterface::getId()
      */
     public function getId(): int
     {
@@ -27,7 +27,7 @@ trait IdentityAwareTrait
     /**
      * {@inheritdoc}
      *
-     * @see IdentityAwareInterface
+     * @see IdentityAwareInterface::hasId()
      */
     public function hasId(): bool
     {

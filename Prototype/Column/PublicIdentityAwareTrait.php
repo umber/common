@@ -7,7 +7,7 @@ namespace Umber\Common\Prototype\Column;
 /**
  * Object becomes aware of public identity.
  *
- * @see PublicIdentityAwareInterface
+ * @mixin PublicIdentityAwareInterface
  */
 trait PublicIdentityAwareTrait
 {
@@ -17,7 +17,7 @@ trait PublicIdentityAwareTrait
     /**
      * {@inheritdoc}
      *
-     * @see PublicIdentityAwareInterface
+     * @see PublicIdentityAwareInterface::getPublicId()
      */
     public function getPublicId(): string
     {
@@ -27,7 +27,7 @@ trait PublicIdentityAwareTrait
     /**
      * {@inheritdoc}
      *
-     * @see PublicIdentityAwareInterface
+     * @see PublicIdentityAwareInterface::hasPublicId()
      */
     public function hasPublicId(): bool
     {
@@ -37,7 +37,7 @@ trait PublicIdentityAwareTrait
     /**
      * {@inheritdoc}
      *
-     * @see PublicIdentityAwareInterface
+     * @see PublicIdentityAwareInterface::setPublicId()
      */
     public function setPublicId(string $uuid): void
     {
