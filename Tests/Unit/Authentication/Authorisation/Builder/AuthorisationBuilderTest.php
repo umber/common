@@ -20,8 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationBuilder
  */
 final class AuthorisationBuilderTest extends TestCase
 {
@@ -44,6 +42,8 @@ final class AuthorisationBuilderTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationBuilder
      */
     public function createEmptyAuthorisation(): void
     {
@@ -64,6 +64,9 @@ final class AuthorisationBuilderTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationBuilder
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\RoleNotFoundException
      */
     public function createAuthorisationEmptyHierarchyThrows(): void
     {
@@ -91,6 +94,9 @@ final class AuthorisationBuilderTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationBuilder
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Permission\PermissionSerialisationNameInvalidException
      */
     public function whenPermissionNameMissingAbilityThrow(): void
     {
@@ -114,6 +120,8 @@ final class AuthorisationBuilderTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationBuilder
      */
     public function canConstructRoleWithPassivePermissionsFromHierarchy(): void
     {
@@ -176,6 +184,8 @@ final class AuthorisationBuilderTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationBuilder
      */
     public function canBuildFromUser(): void
     {

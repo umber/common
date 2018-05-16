@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory
  */
 final class PermissionFactoryTest extends TestCase
 {
@@ -23,6 +21,8 @@ final class PermissionFactoryTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory
      */
     public function canCreatePermission(): void
     {
@@ -37,6 +37,8 @@ final class PermissionFactoryTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory
      */
     public function canCreatePermissionFromString(): void
     {
@@ -51,6 +53,8 @@ final class PermissionFactoryTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory
      */
     public function withPermissionStringInvalidThrow(): void
     {

@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Permission
  */
 final class PermissionTest extends TestCase
 {
@@ -23,6 +21,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function checkBasicUsage(): void
     {
@@ -37,6 +37,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function withUpperCaseLowerCase(): void
     {
@@ -50,6 +52,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function withUpperCaseAbilityLowerCase(): void
     {
@@ -66,6 +70,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function withWildcardAbilityRemoveOtherAbilities(): void
     {
@@ -84,6 +90,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function checkWithAbilities(): void
     {
@@ -105,6 +113,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function canCheckAbilityMissing(): void
     {
@@ -121,6 +131,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function canCheckAbilityFound(): void
     {
@@ -137,6 +149,8 @@ final class PermissionTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function canCheckAbilityWildcard(): void
     {
@@ -169,10 +183,14 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideWithInvalidPermissionNameThrow
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Permission\PermissionScopeNameInvalidException
      */
     public function withInvalidPermissionNameThrow(string $scope): void
     {
@@ -202,10 +220,13 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideWithValidNameAllow
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
      */
     public function withValidNameAllow(string $name): void
     {
@@ -236,10 +257,14 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideWithInvalidPermissionAbilityThrow
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Permission
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Permission\PermissionAbilityNameInvalidException
      */
     public function withInvalidPermissionAbilityThrow(string $ability): void
     {
@@ -272,6 +297,7 @@ final class PermissionTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideWithValidPermissionAbilityAllow
      *
      * @group unit

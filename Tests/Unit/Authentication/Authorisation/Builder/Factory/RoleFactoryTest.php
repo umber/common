@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\RoleFactory
  */
 final class RoleFactoryTest extends TestCase
 {
@@ -22,6 +20,8 @@ final class RoleFactoryTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\RoleFactory
      */
     public function canCreateEmptyRole(): void
     {
@@ -37,6 +37,8 @@ final class RoleFactoryTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\Factory\RoleFactory
      */
     public function canCreateWithPassivePermissions(): void
     {

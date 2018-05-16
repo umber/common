@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Role
  */
 final class RoleTest extends TestCase
 {
@@ -22,6 +20,8 @@ final class RoleTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Role
      */
     public function checkBasicUsage(): void
     {
@@ -36,6 +36,8 @@ final class RoleTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Role
      */
     public function withUpperCaseLowerCase(): void
     {
@@ -66,17 +68,21 @@ final class RoleTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideWithInvalidRoleNameThrow
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Role
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Role\RoleNameInvalidException
      */
     public function withInvalidRoleNameThrow(string $name): void
     {
         self::expectException(RoleNameInvalidException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                RoleNameInvalidException::message(RoleNameInvalidException::E_ROLE_NAME_INVALID),
+                RoleNameInvalidException::message(),
                 ['name' => $name]
             )
         );
@@ -99,10 +105,13 @@ final class RoleTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideWithValidNameAllow
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Role
      */
     public function withValidNameAllow(string $name): void
     {

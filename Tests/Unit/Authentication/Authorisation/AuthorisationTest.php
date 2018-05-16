@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Authorisation
  */
 final class AuthorisationTest extends TestCase
 {
@@ -22,6 +20,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function checkBasicUsage(): void
     {
@@ -37,6 +37,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canCheckHasRoleMissing(): void
     {
@@ -55,6 +57,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canCheckHasRoleFound(): void
     {
@@ -73,6 +77,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canCheckHasPermissionMissing(): void
     {
@@ -91,6 +97,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canCheckHasPermissionFound(): void
     {
@@ -109,6 +117,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canGetPassivePermissions(): void
     {
@@ -134,6 +144,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canCheckHasPassivePermission(): void
     {
@@ -154,6 +166,8 @@ final class AuthorisationTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Authorisation
      */
     public function canExpandRolePassivePermissions(): void
     {

@@ -21,8 +21,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
- *
- * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
  */
 final class AuthorisationHierarchyTest extends TestCase
 {
@@ -45,6 +43,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetEmptyRoles(): void
     {
@@ -56,6 +56,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetEmptyPermissions(): void
     {
@@ -67,6 +69,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canNotFindMissingRole(): void
     {
@@ -78,6 +82,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canNotFindMissingPermission(): void
     {
@@ -89,6 +95,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\RoleNotFoundException
      */
     public function whenGetRoleMissingThrow(): void
     {
@@ -108,6 +118,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenGetPermissionMissingThrow(): void
     {
@@ -127,6 +141,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionMissingAbilitiesException
      */
     public function whenCreatePermissionEmptyAbilitiesThrow(): void
     {
@@ -146,6 +164,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCreatePermission(): void
     {
@@ -163,6 +183,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\DuplicatePermissionScopeException
      */
     public function whenCreatingDuplicatePermissionThrow(): void
     {
@@ -183,6 +207,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCheckHasNewPermission(): void
     {
@@ -197,6 +223,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetPermissionByScope(): void
     {
@@ -212,6 +240,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenGetPermissionAbilityMissingScope(): void
     {
@@ -231,6 +263,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionAbilityNotFoundException
      */
     public function whenGetPermissionAbilityMissingPermissionAbility(): void
     {
@@ -255,6 +291,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetPermissionAbility(): void
     {
@@ -274,6 +312,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCreateEmptyRoles(): void
     {
@@ -293,6 +333,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\DuplicateRoleException
      */
     public function whenCreatingDuplicateRoleThrow(): void
     {
@@ -313,6 +357,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenRoleWithMissingPermissionThrow(): void
     {
@@ -332,6 +380,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
+     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenRoleWithMissingPermissionAbilityThrow(): void
     {
@@ -351,6 +403,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCreateBasicRolesWithPermissions(): void
     {
@@ -377,6 +431,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canCheckRoleByName(): void
     {
@@ -396,6 +452,8 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
     public function canGetRoleByName(): void
     {
@@ -420,8 +478,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
-    public function canResolveInherittedRolePermissions(): void
+    public function canResolveInheritedRolePermissions(): void
     {
         $this->hierarchy->addPermission('product', [
             'view',
@@ -451,8 +511,10 @@ final class AuthorisationHierarchyTest extends TestCase
      *
      * @group unit
      * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
      */
-    public function canResolveInherittedRolePermissionsWithOwnPermissions(): void
+    public function canResolveInheritedRolePermissionsWithOwnPermissions(): void
     {
         $this->hierarchy->addPermission('product', [
             'view',
