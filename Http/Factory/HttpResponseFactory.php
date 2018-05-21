@@ -30,6 +30,11 @@ final class HttpResponseFactory implements HttpFactoryInterface
     public function setPaginationHeaders(HttpResponseInterface $response, PaginatorInterface $paginator): void
     {
         $response->setPaginator($paginator);
+
+        $response->setHeader(PaginatorInterface::PAGINATION_RESULTS_PER_PAGE, (string) $paginator->getResultPerPageCount());
+        $response->setHeader(PaginatorInterface::PAGINATION_RESULTS_COUNT, (string) $paginator->getResultSetCount());
+        $response->setHeader(PaginatorInterface::PAGINATION_RESULTS_TOTAL, (string) $paginator->getResultTotalCount());
+        $response->setHeader(PaginatorInterface::PAGINATION_PAGES_TOTAL, (string) $paginator->getPageTotalCount());
     }
 
     /**

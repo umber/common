@@ -4,7 +4,11 @@
   "type": "library",
 
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.1",
+
+    "lcobucci/jwt": "~3.2",
+    "pagerfanta/pagerfanta": "~1.0",
+    "jms/serializer": "~1.11"
   },
 
   "extra": {

@@ -8,5 +8,8 @@ use Umber\Common\Database\EntityInterface;
 
 interface SecurityInterface
 {
-    public function isGranted(EntityInterface $entity, string $permission): bool;
+    /**
+     * Check if the permission is granted against the given entity.
+     */
+    public function isGranted(EntityInterface $entity, string $permission): void;
 }

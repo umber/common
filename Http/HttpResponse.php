@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class HttpResponse extends Response implements HttpResponseInterface
 {
+    /** @var PaginatorInterface */
+    private $paginator;
+
     public function __construct(int $status, string $content)
     {
         parent::__construct($content, $status);
@@ -29,7 +32,16 @@ final class HttpResponse extends Response implements HttpResponseInterface
     /**
      * {@inheritdoc}
      */
+    public function getPaginator(): PaginatorInterface
+    {
+        return $this->paginator;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setPaginator(PaginatorInterface $paginator): void
     {
+        $this->paginator = $paginator;
     }
 }

@@ -12,5 +12,7 @@ interface HttpResponseInterface
 
     public function setHeader(string $header, string $value): void;
 
+    public function getPaginator(): PaginatorInterface;
+
     public function setPaginator(PaginatorInterface $paginator): void;
 }

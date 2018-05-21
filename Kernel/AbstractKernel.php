@@ -15,7 +15,7 @@ use Symfony\Component\Routing\RouteCollectionBuilder;
  */
 abstract class AbstractKernel extends SymfonyKernel
 {
-    public const EXTENSIONS = '{xml,yml}';
+    public const EXTENSIONS = '{xml,yaml}';
 
     /**
      * Return the configuration directory.
@@ -69,7 +69,7 @@ abstract class AbstractKernel extends SymfonyKernel
             $services = function (string $root) use ($loader): void {
                 $loader->load(sprintf('%s/{parameters}.%s', $root, self::EXTENSIONS), 'glob');
                 $loader->load(sprintf('%s/{parameters}.env.%s', $root, self::EXTENSIONS), 'glob');
-                $loader->load(sprintf('%s/{services}.%s', $root, self::EXTENSIONS), 'glob');
+                $loader->load(sprintf('%s/{services}/*.%s', $root, self::EXTENSIONS), 'glob');
                 $loader->load(sprintf('%s/{packages}/*.%s', $root, self::EXTENSIONS), 'glob');
             };
 
@@ -82,6 +82,8 @@ abstract class AbstractKernel extends SymfonyKernel
 
     /**
      * @internal
+     *
+     * @throws \Exception
      */
     public function routes(LoaderInterface $loader): RouteCollection
     {
@@ -96,11 +98,11 @@ abstract class AbstractKernel extends SymfonyKernel
          * @throws \Exception due to loader failing.
          */
         $routes = function (string $root) use ($collection): void {
-            $collection->import(sprintf('%s/routes/*.%s', $root, self::EXTENSIONS, 'glob'));
+            $collection->import(sprintf('%s/{routes}/*.%s', $root, self::EXTENSIONS), '/', 'glob');
         };
 
         $routes($root);
-        $routes(sprintf('%s/environments/%s', $root, $this->getEnvironment()));
+        $routes(sprintf('%s/{environments}/{%s}', $root, $this->getEnvironment()));
 
         return $collection->build();
     }
