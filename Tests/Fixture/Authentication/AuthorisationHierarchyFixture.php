@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Umber\Common\Tests\Fixture\Authentication;
 
 use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;

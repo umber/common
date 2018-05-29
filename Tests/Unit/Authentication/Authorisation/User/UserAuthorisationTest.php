@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Umber\Common\Tests\Unit\Authentication\Authorisation\User;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Umber\Common\Authentication\Authorisation\Authorisation;
-use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;
-use Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory;
-use Umber\Common\Authentication\Authorisation\Builder\Factory\RoleFactory;
 use Umber\Common\Authentication\Authorisation\Permission;
-use Umber\Common\Authentication\Authorisation\Role;
 use Umber\Common\Authentication\Authorisation\User\UserAuthorisation;
 use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
+
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
@@ -27,7 +25,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function checkBasicUsage(): void
     {
@@ -58,7 +56,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canCheckHasRoleMissing(): void
     {
@@ -68,7 +66,7 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
-                'admin'
+                'admin',
             ]);
 
         $user->expects(self::once())
@@ -89,7 +87,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canCheckHasRoleFound(): void
     {
@@ -99,7 +97,7 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
-                'admin'
+                'admin',
             ]);
 
         $user->expects(self::once())
@@ -120,7 +118,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canCheckHasPermissionMissing(): void
     {
@@ -134,7 +132,7 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([
                 'product:view',
-                'blog:view'
+                'blog:view',
             ]);
 
         $hierarchy = AuthorisationHierarchyFixture::create();
@@ -151,7 +149,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canCheckHasPermissionFound(): void
     {
@@ -165,7 +163,7 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([
                 'product:view',
-                'blog:view'
+                'blog:view',
             ]);
 
         $hierarchy = AuthorisationHierarchyFixture::create();
@@ -182,7 +180,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canGetPassivePermissions(): void
     {
@@ -191,7 +189,7 @@ final class UserAuthorisationTest extends TestCase
         $user->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
-                'manager'
+                'manager',
             ]);
 
         $user->expects(self::once())
@@ -217,7 +215,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canCheckHasPassivePermission(): void
     {
@@ -226,7 +224,7 @@ final class UserAuthorisationTest extends TestCase
         $user->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
-                'manager'
+                'manager',
             ]);
 
         $user->expects(self::once())
@@ -247,7 +245,7 @@ final class UserAuthorisationTest extends TestCase
      *
      * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
      *
-     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function canExpandRolePassivePermissions(): void
     {
@@ -256,7 +254,7 @@ final class UserAuthorisationTest extends TestCase
         $user->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
-                'manager'
+                'manager',
             ]);
 
         $user->expects(self::once())

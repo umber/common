@@ -54,4 +54,14 @@ trait SymfonyUserTrait
     public function eraseCredentials()
     {
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see CommonUserInterface::getAuthorisationRoles()
+     */
+    public function getRoles()
+    {
+        return $this->getAuthorisationRoles();
+    }
 }

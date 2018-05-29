@@ -15,4 +15,9 @@ interface AuthenticationHeaderInterface
      * Create a string representation.
      */
     public function getValue(): string;
+
+    /**
+     * Convert to string.
+     */
+    public function toString(): string;
 }

@@ -6,6 +6,9 @@ namespace Umber\Common\Authentication\Method\Header;
 
 use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
 
+/**
+ * {@inheritdoc}
+ */
 final class AuthorisationHeader implements AuthenticationHeaderInterface
 {
     private $type;
@@ -13,7 +16,7 @@ final class AuthorisationHeader implements AuthenticationHeaderInterface
 
     public function __construct(string $type, string $value)
     {
-        $this->type = $type;
+        $this->type = strtolower($type);
         $this->value = $value;
     }
 
@@ -34,10 +37,18 @@ final class AuthorisationHeader implements AuthenticationHeaderInterface
     }
 
     /**
-     * Convert to string.
+     * {@inheritdoc}
      */
     public function toString(): string
     {
-        return sprintf('%s %s', $this->type, $this->value);
+        return sprintf('%s %s', ucwords($this->type), $this->value);
+    }
+
+    /**
+     * Magic conversion to string.
+     */
+    public function __toString()
+    {
+        return $this->toString();
     }
 }

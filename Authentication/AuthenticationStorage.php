@@ -18,18 +18,11 @@ final class AuthenticationStorage implements AuthenticationStorageInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \Exception
      */
-    public function authorise(AuthorisationInterface $authorisation): void
+    public function authorise(UserAuthorisationInterface $authorisation): void
     {
         $this->authorisation = $authorisation;
-
-        if ($authorisation instanceof UserAuthorisationInterface) {
-            $this->user = $authorisation->getUser();
-        }
-
-        throw new \Exception('cannot resolve user');
+        $this->user = $authorisation->getUser();
     }
 
     /**
@@ -54,21 +47,5 @@ final class AuthenticationStorage implements AuthenticationStorageInterface
     public function isAuthenticated(): bool
     {
         return $this->user !== null;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getRoles(): array
-    {
-        return $this->authorisation->getRoles();
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getPermissions(): array
-    {
-        return $this->authorisation->getPermissions();
     }
 }

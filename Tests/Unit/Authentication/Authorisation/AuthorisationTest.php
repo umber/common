@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Umber\Common\Tests\Unit\Authentication\Authorisation;
 
 use Umber\Common\Authentication\Authorisation\Authorisation;
-use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;
-use Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory;
-use Umber\Common\Authentication\Authorisation\Builder\Factory\RoleFactory;
 use Umber\Common\Authentication\Authorisation\Permission;
-use Umber\Common\Authentication\Authorisation\Role;
+use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 
 use PHPUnit\Framework\TestCase;
-use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 
 /**
  * {@inheritdoc}
@@ -177,7 +173,7 @@ final class AuthorisationTest extends TestCase
     public function canExpandRolePassivePermissions(): void
     {
         $roles = [
-            'manager'
+            'manager',
         ];
 
         $permissions = [
@@ -188,12 +184,12 @@ final class AuthorisationTest extends TestCase
         $authorisation = new Authorisation($hierarchy, $roles, $permissions);
 
         $permissions = [
-            new Permission('product', ['view'])
+            new Permission('product', ['view']),
         ];
 
         $passive = [
             new Permission('blog', ['view']),
-            new Permission('product', ['create', 'view'])
+            new Permission('product', ['create', 'view']),
         ];
 
         self::assertEquals($permissions, $authorisation->getPermissions());

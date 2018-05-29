@@ -36,4 +36,20 @@ final class StringAuthorisationHeader implements AuthenticationHeaderInterface
     {
         return $this->header->getValue();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toString(): string
+    {
+        return $this->header->toString();
+    }
+
+    /**
+     * Magic conversion to string.
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
 }

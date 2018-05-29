@@ -582,7 +582,7 @@ final class AuthorisationHierarchyTest extends TestCase
                 new Permission('product', [
                     'view',
                 ]),
-            ])
+            ]),
         ];
 
         self::assertEquals($expected, $this->hierarchy->resolveRolesByArray(['admin']));

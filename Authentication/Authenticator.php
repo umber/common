@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication;
 
+use Umber\Common\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Common\Authentication\Authorisation\User\UserAuthorisation;
 use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
 use Umber\Common\Authentication\Prototype\UserInterface;
@@ -11,15 +12,18 @@ use Umber\Common\Authentication\Resolver\UserResolverInterface;
 
 final class Authenticator
 {
-    private $authentication;
-    private $resolver;
+    private $authenticationStorage;
+    private $authorisationHierarchyResolver;
+    private $userResolver;
 
     public function __construct(
-        AuthenticationStorageInterface $authentication,
-        UserResolverInterface $resolver
+        AuthenticationStorageInterface $authenticationStorage,
+        AuthorisationHierarchyResolverInterface $authorisationHierarchyResolver,
+        UserResolverInterface $userResolver
     ) {
-        $this->authentication = $authentication;
-        $this->resolver = $resolver;
+        $this->authenticationStorage = $authenticationStorage;
+        $this->authorisationHierarchyResolver = $authorisationHierarchyResolver;
+        $this->userResolver = $userResolver;
     }
 
     /**
@@ -28,15 +32,17 @@ final class Authenticator
      */
     public function authenticate(AuthenticationHeaderInterface $header): void
     {
-        $user = $this->resolver->resolve($header);
+        $user = $this->userResolver->resolve($header);
 
         if ($user === null) {
             throw new \Exception('missing user');
         }
 
-        $authorisation = new UserAuthorisation($user);
+        $hierarchy = $this->authorisationHierarchyResolver->resolve();
 
-        $this->authentication->authorise($authorisation);
+        $authorisation = new UserAuthorisation($hierarchy, $user);
+
+        $this->authenticationStorage->authorise($authorisation);
     }
 
     /**
@@ -48,11 +54,11 @@ final class Authenticator
             throw new \Exception('not authenticated');
         }
 
-        return $this->authentication->getUser();
+        return $this->authenticationStorage->getUser();
     }
 
     public function isAuthenticated(): bool
     {
-        return $this->authentication->isAuthenticated();
+        return $this->authenticationStorage->isAuthenticated();
     }
 }

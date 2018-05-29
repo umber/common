@@ -44,7 +44,7 @@ abstract class CanonicalAwareRuntimeException extends RuntimeException
 
         $message = static::message();
 
-        if (count($parameters) > 0) {
+        if (count($parameters) > 0 || is_array($message)) {
             $message = ExceptionMessageHelper::translate($message, $parameters);
         }
 
