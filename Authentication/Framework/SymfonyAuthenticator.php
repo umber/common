@@ -61,7 +61,7 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
             $user,
             $token->getCredentials(),
             $provider,
-            $user->getRoles()
+            $user->getAuthorisationRoles()
         );
     }
 }

@@ -72,7 +72,7 @@ final class AuthorisationHierarchy
             throw DuplicateRoleException::create($name);
         }
 
-        $availablePermissions = $this->getPermissionsByArray($permissions);
+        $availablePermissions = $this->resolvePermissionsByArray($permissions);
         $inheritedPermissions = [];
 
         foreach ($roles as $role) {
@@ -175,17 +175,35 @@ final class AuthorisationHierarchy
     }
 
     /**
-     * Return all the permissions by the serialised names.
+     * Return all the roles by the serialised names.
      *
-     * @param string[] $list
+     * @param string[] $roles
      *
-     * @return PermissionInterface[]
+     * @return RoleInterface[]
      */
-    public function getPermissionsByArray(array $list): array
+    public function resolveRolesByArray(array $roles): array
     {
         $resolved = [];
 
-        foreach ($list as $string) {
+        foreach ($roles as $role) {
+            $resolved[] = $this->getRole($role);
+        }
+
+        return $resolved;
+    }
+
+    /**
+     * Return all the permissions by the serialised names.
+     *
+     * @param string[] $permissions
+     *
+     * @return PermissionInterface[]
+     */
+    public function resolvePermissionsByArray(array $permissions): array
+    {
+        $resolved = [];
+
+        foreach ($permissions as $string) {
             $instance = $this->permissionFactory->createFromString($string);
 
             $resolved[] = $this->getPermissionAbility(

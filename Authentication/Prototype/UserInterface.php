@@ -12,14 +12,14 @@ interface UserInterface
     public function getEmail(): string;
 
     /**
-     * @return RoleInterface[]
+     * @return string[]
      */
-    public function getRoles(): array;
+    public function getAuthorisationRoles(): array;
 
     /**
-     * @return PermissionInterface[]
+     * @return string[]
      */
-    public function getPermissions(): array;
+    public function getAuthorisationPermissions(): array;
 
     /**
      * @param RoleInterface[] $roles

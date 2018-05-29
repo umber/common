@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace Umber\Common\Tests\Unit\Authentication\Authorisation;
 
 use Umber\Common\Authentication\Authorisation\Authorisation;
+use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;
+use Umber\Common\Authentication\Authorisation\Builder\Factory\PermissionFactory;
+use Umber\Common\Authentication\Authorisation\Builder\Factory\RoleFactory;
 use Umber\Common\Authentication\Authorisation\Permission;
 use Umber\Common\Authentication\Authorisation\Role;
 
 use PHPUnit\Framework\TestCase;
+use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 
 /**
  * {@inheritdoc}
@@ -25,7 +29,8 @@ final class AuthorisationTest extends TestCase
      */
     public function checkBasicUsage(): void
     {
-        $authorisation = new Authorisation([], []);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, [], []);
 
         self::assertEquals([], $authorisation->getRoles());
         self::assertEquals([], $authorisation->getPermissions());
@@ -43,11 +48,12 @@ final class AuthorisationTest extends TestCase
     public function canCheckHasRoleMissing(): void
     {
         $roles = [
-            new Role('manager', []),
-            new Role('admin', []),
+            'manager',
+            'admin',
         ];
 
-        $authorisation = new Authorisation($roles, []);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, $roles, []);
 
         self::assertFalse($authorisation->hasRole('system'));
     }
@@ -63,11 +69,12 @@ final class AuthorisationTest extends TestCase
     public function canCheckHasRoleFound(): void
     {
         $roles = [
-            new Role('manager', []),
-            new Role('admin', []),
+            'manager',
+            'admin',
         ];
 
-        $authorisation = new Authorisation($roles, []);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, $roles, []);
 
         self::assertTrue($authorisation->hasRole('manager'));
     }
@@ -83,11 +90,12 @@ final class AuthorisationTest extends TestCase
     public function canCheckHasPermissionMissing(): void
     {
         $permissions = [
-            new Permission('product', ['view']),
-            new Permission('blog', ['view']),
+            'product:view',
+            'blog:view',
         ];
 
-        $authorisation = new Authorisation([], $permissions);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, [], $permissions);
 
         self::assertFalse($authorisation->hasPermission('user', 'view'));
     }
@@ -103,11 +111,12 @@ final class AuthorisationTest extends TestCase
     public function canCheckHasPermissionFound(): void
     {
         $permissions = [
-            new Permission('product', ['view']),
-            new Permission('blog', ['view']),
+            'product:view',
+            'blog:view',
         ];
 
-        $authorisation = new Authorisation([], $permissions);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, [], $permissions);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -123,17 +132,15 @@ final class AuthorisationTest extends TestCase
     public function canGetPassivePermissions(): void
     {
         $roles = [
-            new Role('manager', [
-                new Permission('product', ['create', 'view']),
-                new Permission('blog', ['view']),
-            ]),
+            'manager',
         ];
 
-        $authorisation = new Authorisation($roles, []);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, $roles, []);
 
         $expected = [
-            new Permission('product', ['create', 'view']),
             new Permission('blog', ['view']),
+            new Permission('product', ['create', 'view']),
         ];
 
         self::assertEquals($expected, $authorisation->getPassivePermissions());
@@ -150,13 +157,11 @@ final class AuthorisationTest extends TestCase
     public function canCheckHasPassivePermission(): void
     {
         $roles = [
-            new Role('manager', [
-                new Permission('product', ['create', 'view']),
-                new Permission('blog', ['view']),
-            ]),
+            'manager',
         ];
 
-        $authorisation = new Authorisation($roles, []);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, $roles, []);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -172,25 +177,26 @@ final class AuthorisationTest extends TestCase
     public function canExpandRolePassivePermissions(): void
     {
         $roles = [
-            new Role('manager', [
-                new Permission('product', ['view']),
-                new Permission('blog', ['view']),
-            ]),
+            'manager'
         ];
 
         $permissions = [
-            new Permission('product', ['view']),
-            new Permission('user', ['view']),
+            'product:view',
         ];
 
-        $authorisation = new Authorisation($roles, $permissions);
+        $hierarchy = AuthorisationHierarchyFixture::create();
+        $authorisation = new Authorisation($hierarchy, $roles, $permissions);
 
-        $expected = [
-            new Permission('product', ['view']),
+        $permissions = [
+            new Permission('product', ['view'])
+        ];
+
+        $passive = [
             new Permission('blog', ['view']),
+            new Permission('product', ['create', 'view'])
         ];
 
         self::assertEquals($permissions, $authorisation->getPermissions());
-        self::assertEquals($expected, $authorisation->getPassivePermissions());
+        self::assertEquals($passive, $authorisation->getPassivePermissions());
     }
 }

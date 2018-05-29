@@ -545,4 +545,46 @@ final class AuthorisationHierarchyTest extends TestCase
 
         self::assertEquals($expected, $this->hierarchy->getRole('admin'));
     }
+
+    /**
+     * @test
+     *
+     * @group unit
+     * @group authentication
+     *
+     * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
+     */
+    public function canResolveRoleArray(): void
+    {
+        $this->hierarchy->addPermission('product', [
+            'view',
+            'create',
+        ]);
+
+        $this->hierarchy->addPermission('blog', [
+            'view',
+            'create',
+            'delete',
+        ]);
+
+        $this->hierarchy->addRole('manager', [], ['product:view']);
+        $this->hierarchy->addRole('admin', ['manager'], [
+            'blog:view',
+            'blog:create',
+        ]);
+
+        $expected = [
+            new Role('admin', [
+                new Permission('blog', [
+                    'create',
+                    'view',
+                ]),
+                new Permission('product', [
+                    'view',
+                ]),
+            ])
+        ];
+
+        self::assertEquals($expected, $this->hierarchy->resolveRolesByArray(['admin']));
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication;
 
+use Umber\Common\Authentication\Authorisation\User\UserAuthorisation;
 use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
 use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Authentication\Resolver\UserResolverInterface;
@@ -14,7 +15,7 @@ final class Authenticator
     private $resolver;
 
     public function __construct(
-        AuthenticationInterface $authentication,
+        AuthenticationStorageInterface $authentication,
         UserResolverInterface $resolver
     ) {
         $this->authentication = $authentication;
@@ -33,7 +34,9 @@ final class Authenticator
             throw new \Exception('missing user');
         }
 
-        $this->authentication->populate($user);
+        $authorisation = new UserAuthorisation($user);
+
+        $this->authentication->authorise($authorisation);
     }
 
     /**

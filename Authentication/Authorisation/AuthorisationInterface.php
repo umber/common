@@ -7,8 +7,6 @@ namespace Umber\Common\Authentication\Authorisation;
 interface AuthorisationInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @return RoleInterface[]
      */
     public function getRoles(): array;
@@ -16,8 +14,6 @@ interface AuthorisationInterface
     public function hasRole(string $role): bool;
 
     /**
-     * {@inheritdoc}
-     *
      * @return PermissionInterface[]
      */
     public function getPermissions(): array;
@@ -25,8 +21,6 @@ interface AuthorisationInterface
     public function hasPermission(string $scope, string $attribute): bool;
 
     /**
-     * {@inheritdoc}
-     *
      * @return PermissionInterface[]
      */
     public function getPassivePermissions(): array;

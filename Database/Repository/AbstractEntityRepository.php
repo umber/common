@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Database\Repository;
 
-use Umber\Common\Authentication\AuthenticationInterface;
+use Umber\Common\Authentication\AuthenticationStorageInterface;
 use Umber\Common\Database\Pagination\PaginatorFactoryInterface;
 
 use Doctrine\ORM\EntityRepository;
@@ -17,8 +17,8 @@ abstract class AbstractEntityRepository extends EntityRepository
     /** @var PaginatorFactoryInterface */
     private $paginatorFactory;
 
-    /** @var AuthenticationInterface */
-    private $authentication;
+    /** @var AuthenticationStorageInterface */
+    private $authenticationStorage;
 
     /**
      * Set the paginator helper factory.
@@ -31,9 +31,9 @@ abstract class AbstractEntityRepository extends EntityRepository
     /**
      * Set the authentication storage helper.
      */
-    final public function setAuthentication(AuthenticationInterface $authentication): void
+    final public function setAuthenticationStorage(AuthenticationStorageInterface $authenticationStorage): void
     {
-        $this->authentication = $authentication;
+        $this->authenticationStorage = $authenticationStorage;
     }
 
     /**
@@ -55,12 +55,12 @@ abstract class AbstractEntityRepository extends EntityRepository
      *
      * @throws \Exception
      */
-    protected function getAuthentication(): AuthenticationInterface
+    protected function getAuthenticationStorage(): AuthenticationStorageInterface
     {
-        if (!$this->authentication instanceof AuthenticationInterface) {
+        if (!$this->authenticationStorage instanceof AuthenticationStorageInterface) {
             throw new \Exception('repository missing authentication');
         }
 
-        return $this->authentication;
+        return $this->authenticationStorage;
     }
 }

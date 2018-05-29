@@ -17,9 +17,6 @@ final class RequestAuthorisationHeader implements AuthenticationHeaderInterface
     private $header;
 
     /**
-     *
-     *
-     *
      * @throws \Exception
      */
     public function __construct(Request $request)

@@ -4,27 +4,32 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Authorisation;
 
+use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;
+
 /**
  * {@inheritdoc}
  */
 final class Authorisation implements AuthorisationInterface
 {
+    /** @var RoleInterface[] */
     private $roles;
+
+    /** @var PermissionInterface[] */
     private $permissions;
 
     /** @var PermissionInterface[] */
     private $passivePermissions = [];
 
     /**
-     * @param RoleInterface[] $roles
-     * @param PermissionInterface[] $permissions
+     * @param string[] $roles
+     * @param string[] $permissions
      */
-    public function __construct(array $roles, array $permissions)
+    public function __construct(AuthorisationHierarchy $hierarchy, array $roles, array $permissions)
     {
-        $this->roles = $roles;
-        $this->permissions = $permissions;
+        $this->roles = $hierarchy->resolveRolesByArray($roles);
+        $this->permissions = $hierarchy->resolvePermissionsByArray($permissions);
 
-        foreach ($roles as $role) {
+        foreach ($this->roles as $role) {
             foreach ($role->getPassivePermissions() as $permission) {
                 $this->passivePermissions[] = $permission;
             }

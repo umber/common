@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Database\Manager;
 
-use Umber\Common\Authentication\AuthenticationInterface;
+use Umber\Common\Authentication\AuthenticationStorageInterface;
 use Umber\Common\Database\DatabaseManagerInterface;
 use Umber\Common\Database\EntityRepositoryInterface;
 use Umber\Common\Database\Pagination\PaginatorFactoryInterface;
@@ -20,22 +20,22 @@ use Doctrine\ORM\EntityManagerInterface;
 final class DoctrineDatabaseManager implements DatabaseManagerInterface
 {
     /** @var EntityManagerInterface */
-    private $em;
+    private $entityManager;
 
     /** @var PaginatorFactoryInterface */
     private $paginatorFactory;
 
-    /** @var AuthenticationInterface */
-    private $authentication;
+    /** @var AuthenticationStorageInterface */
+    private $authenticationStorage;
 
     public function __construct(
         RegistryInterface $registry,
         PaginatorFactoryInterface $paginatorFactory,
-        AuthenticationInterface $authentication
+        AuthenticationStorageInterface $authenticationStorage
     ) {
-        $this->em = $registry->getManager();
+        $this->entityManager = $registry->getManager();
         $this->paginatorFactory = $paginatorFactory;
-        $this->authentication = $authentication;
+        $this->authenticationStorage = $authenticationStorage;
     }
 
     /**
@@ -43,7 +43,7 @@ final class DoctrineDatabaseManager implements DatabaseManagerInterface
      */
     public function getEntityManager(): EntityManagerInterface
     {
-        return $this->em;
+        return $this->entityManager;
     }
 
     /**
@@ -53,7 +53,7 @@ final class DoctrineDatabaseManager implements DatabaseManagerInterface
      */
     public function getRepository(string $entity): EntityRepositoryInterface
     {
-        $repository = $this->em->getRepository($entity);
+        $repository = $this->entityManager->getRepository($entity);
 
         if (!$repository instanceof EntityRepositoryInterface) {
             throw new \Exception('entity repository interface missing');
@@ -61,7 +61,7 @@ final class DoctrineDatabaseManager implements DatabaseManagerInterface
 
         if ($repository instanceof AbstractEntityRepository) {
             $repository->setPaginatorFactory($this->paginatorFactory);
-            $repository->setAuthentication($this->authentication);
+            $repository->setAuthenticationStorage($this->authenticationStorage);
         }
 
         return $repository;
