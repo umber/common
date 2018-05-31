@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Authentication\Authorisation\Permission;
 
-use Umber\Common\Exception\Aware\CanonicalAwareRuntimeException;
+use Umber\Common\Exception\AbstractRuntimeException;
 
 /**
  * {@inheritdoc}
  */
-final class PermissionSerialisationNameInvalidException extends CanonicalAwareRuntimeException
+final class PermissionSerialisationNameInvalidException extends AbstractRuntimeException
 {
-    public const E_PERMISSION_SERIALISATION_NAME_INVALID = 'permission.permission_serialisation_name_invalid';
-
     /**
      * @return PermissionSerialisationNameInvalidException
      */
     public static function create(string $permission): self
     {
-        return new self(self::E_PERMISSION_SERIALISATION_NAME_INVALID, [
+        return new self([
             'permission' => $permission,
         ]);
     }
@@ -26,7 +24,7 @@ final class PermissionSerialisationNameInvalidException extends CanonicalAwareRu
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getMessageTemplate(): array
     {
         return [
             'A transportable permission name should contain its ability.',

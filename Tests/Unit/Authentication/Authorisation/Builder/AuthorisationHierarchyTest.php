@@ -97,7 +97,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\RoleNotFoundException
      */
     public function whenGetRoleMissingThrow(): void
@@ -105,7 +104,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(RoleNotFoundException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                RoleNotFoundException::message(),
+                RoleNotFoundException::getMessageTemplate(),
                 ['name' => 'admin']
             )
         );
@@ -120,7 +119,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenGetPermissionMissingThrow(): void
@@ -128,7 +126,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(PermissionScopeNotFoundException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionScopeNotFoundException::message(),
+                PermissionScopeNotFoundException::getMessageTemplate(),
                 ['scope' => 'product']
             )
         );
@@ -143,7 +141,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionMissingAbilitiesException
      */
     public function whenCreatePermissionEmptyAbilitiesThrow(): void
@@ -151,7 +148,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(PermissionMissingAbilitiesException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionMissingAbilitiesException::message(),
+                PermissionMissingAbilitiesException::getMessageTemplate(),
                 ['scope' => 'product']
             )
         );
@@ -185,7 +182,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\DuplicatePermissionScopeException
      */
     public function whenCreatingDuplicatePermissionThrow(): void
@@ -193,7 +189,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(DuplicatePermissionScopeException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                DuplicatePermissionScopeException::message(),
+                DuplicatePermissionScopeException::getMessageTemplate(),
                 ['scope' => 'product']
             )
         );
@@ -242,7 +238,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenGetPermissionAbilityMissingScope(): void
@@ -250,7 +245,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(PermissionScopeNotFoundException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionScopeNotFoundException::message(),
+                PermissionScopeNotFoundException::getMessageTemplate(),
                 ['scope' => 'product']
             )
         );
@@ -265,7 +260,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionAbilityNotFoundException
      */
     public function whenGetPermissionAbilityMissingPermissionAbility(): void
@@ -275,7 +269,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(PermissionAbilityNotFoundException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionAbilityNotFoundException::message(),
+                PermissionAbilityNotFoundException::getMessageTemplate(),
                 [
                     'scope' => 'product',
                     'ability' => 'view',
@@ -335,7 +329,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\DuplicateRoleException
      */
     public function whenCreatingDuplicateRoleThrow(): void
@@ -343,7 +336,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(DuplicateRoleException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                DuplicateRoleException::message(),
+                DuplicateRoleException::getMessageTemplate(),
                 ['name' => 'manager']
             )
         );
@@ -359,7 +352,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenRoleWithMissingPermissionThrow(): void
@@ -367,7 +359,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(PermissionScopeNotFoundException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionScopeNotFoundException::message(),
+                PermissionScopeNotFoundException::getMessageTemplate(),
                 ['scope' => 'product']
             )
         );
@@ -382,7 +374,6 @@ final class AuthorisationHierarchyTest extends TestCase
      * @group authentication
      *
      * @covers \Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy
-     * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException
      * @covers \Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy\PermissionScopeNotFoundException
      */
     public function whenRoleWithMissingPermissionAbilityThrow(): void
@@ -390,7 +381,7 @@ final class AuthorisationHierarchyTest extends TestCase
         self::expectException(PermissionScopeNotFoundException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionScopeNotFoundException::message(),
+                PermissionScopeNotFoundException::getMessageTemplate(),
                 ['scope' => 'product']
             )
         );

@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Umber\Common\Tests\Model\Authentication;
 
-use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 use Umber\Common\Authentication\Framework\SymfonyUserTrait;
 use Umber\Common\Authentication\Prototype\UserInterface as CommonUserInterface;
+
+use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 /**
  * A user test model.

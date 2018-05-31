@@ -47,7 +47,7 @@ final class AuthorisationHeader implements AuthenticationHeaderInterface
     /**
      * Magic conversion to string.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }

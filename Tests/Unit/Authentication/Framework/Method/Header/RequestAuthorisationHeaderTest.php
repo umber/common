@@ -87,7 +87,7 @@ final class RequestAuthorisationHeaderTest extends TestCase
     {
         self::expectException(RequestAuthorisationHeaderMissingException::class);
         self::expectExceptionMessage(ExceptionMessageHelper::translate(
-            RequestAuthorisationHeaderMissingException::message()
+            RequestAuthorisationHeaderMissingException::getMessageTemplate()
         ));
 
         new RequestAuthorisationHeader(new Request());

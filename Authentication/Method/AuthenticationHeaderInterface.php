@@ -6,6 +6,9 @@ namespace Umber\Common\Authentication\Method;
 
 interface AuthenticationHeaderInterface
 {
+    public const TYPE_BEARER = 'bearer';
+    public const TYPE_EMAIL = 'email';
+
     /**
      * Return the authorisation type.
      */

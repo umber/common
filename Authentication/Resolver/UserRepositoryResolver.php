@@ -8,6 +8,9 @@ use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
 use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Authentication\Prototype\UserRepositoryInterface;
 
+/**
+ * {@inheritdoc}
+ */
 final class UserRepositoryResolver implements UserResolverInterface
 {
     private $repository;
@@ -23,8 +26,11 @@ final class UserRepositoryResolver implements UserResolverInterface
     public function resolve(AuthenticationHeaderInterface $header): ?UserInterface
     {
         switch ($header->getType()) {
-            case 'Email':
+            case AuthenticationHeaderInterface::TYPE_EMAIL:
                 return $this->repository->findOneByEmail($header->getValue());
+
+            default:
+                throw new \Exception('unsupported header type');
         }
     }
 }

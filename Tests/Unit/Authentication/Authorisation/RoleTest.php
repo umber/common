@@ -82,7 +82,7 @@ final class RoleTest extends TestCase
         self::expectException(RoleNameInvalidException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                RoleNameInvalidException::message(),
+                RoleNameInvalidException::getMessageTemplate(),
                 ['name' => $name]
             )
         );

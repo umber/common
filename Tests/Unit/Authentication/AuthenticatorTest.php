@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Umber\Common\Tests\Unit\Authentication;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Umber\Common\Authentication\AuthenticationStorageInterface;
 use Umber\Common\Authentication\Authenticator;
 use Umber\Common\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
@@ -11,6 +11,9 @@ use Umber\Common\Authentication\Method\Header\AuthorisationHeader;
 use Umber\Common\Authentication\Resolver\UserResolverInterface;
 use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 use Umber\Common\Tests\Model\Authentication\UserTestModel;
+
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
@@ -52,6 +55,5 @@ final class AuthenticatorTest extends TestCase
 
         $authenticator = new Authenticator($storage, $authorisationHierarchyResolver, $userResolver);
         $authenticator->authenticate(new AuthorisationHeader('bearer', 'some-value'));
-
     }
 }

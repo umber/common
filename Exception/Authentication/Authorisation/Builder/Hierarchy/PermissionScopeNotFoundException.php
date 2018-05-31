@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException;
+use Umber\Common\Exception\AbstractRuntimeException;
 
 /**
  * {@inheritdoc}
  */
-final class PermissionScopeNotFoundException extends AbstractAuthorisationRoleHierarchyException
+final class PermissionScopeNotFoundException extends AbstractRuntimeException
 {
-    public const E_PERMISSION_SCOPE_NOT_FOUND = 'permission_scope_not_found';
-
     /**
      * @return DuplicateRoleException
      */
     public static function create(string $scope): self
     {
-        return new self(self::E_PERMISSION_SCOPE_NOT_FOUND, [
+        return new self([
             'scope' => $scope,
         ]);
     }
@@ -26,7 +24,7 @@ final class PermissionScopeNotFoundException extends AbstractAuthorisationRoleHi
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getMessageTemplate(): array
     {
         return [
             'The permission scope "{{scope}}" was not found.',

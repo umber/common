@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Umber\Common\Tests\Unit\Authentication\Framework;
 
-use PHPUnit\Framework\TestCase;
 use Umber\Common\Authentication\Framework\SymfonyUserTrait;
 use Umber\Common\Authentication\Prototype\UserInterface;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}

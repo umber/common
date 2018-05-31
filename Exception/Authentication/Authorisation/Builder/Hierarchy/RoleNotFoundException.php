@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException;
+use Umber\Common\Exception\AbstractRuntimeException;
 
 /**
  * {@inheritdoc}
  */
-final class RoleNotFoundException extends AbstractAuthorisationRoleHierarchyException
+final class RoleNotFoundException extends AbstractRuntimeException
 {
-    public const E_ROLE_NOT_FOUND = 'role_not_found';
-
     /**
      * @return DuplicateRoleException
      */
     public static function create(string $role): self
     {
-        return new self(self::E_ROLE_NOT_FOUND, [
+        return new self([
             'name' => $role,
         ]);
     }
@@ -26,7 +24,7 @@ final class RoleNotFoundException extends AbstractAuthorisationRoleHierarchyExce
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getMessageTemplate(): array
     {
         return [
             'The role "{{name}}" was not found.',

@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException;
+use Umber\Common\Exception\AbstractRuntimeException;
 
 /**
  * {@inheritdoc}
  */
-final class PermissionAbilityNotFoundException extends AbstractAuthorisationRoleHierarchyException
+final class PermissionAbilityNotFoundException extends AbstractRuntimeException
 {
-    public const E_PERMISSION_ABILITY_NOT_FOUND = 'permission_ability_not_found';
-
     /**
      * @return DuplicateRoleException
      */
     public static function create(string $scope, string $ability): self
     {
-        return new self(self::E_PERMISSION_ABILITY_NOT_FOUND, [
+        return new self([
             'scope' => $scope,
             'ability' => $ability,
         ]);
@@ -27,7 +25,7 @@ final class PermissionAbilityNotFoundException extends AbstractAuthorisationRole
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getMessageTemplate(): array
     {
         return [
             'The permission ability "{{ability}}" was not found against the scope "{{scope}}".',

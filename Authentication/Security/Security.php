@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Umber\Common\Authentication\Security;
 
 use Umber\Common\Authentication\AuthenticationStorageInterface;
+use Umber\Common\Authentication\Security\Entity\AuthorisationCheckerInterface;
 use Umber\Common\Database\EntityInterface;
-
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Umber\Common\Exception\Authentication\PermissionDeniedException;
 
 /**
  * {@inheritdoc}
@@ -19,7 +19,7 @@ final class Security implements SecurityInterface
 
     public function __construct(
         AuthenticationStorageInterface $authentication,
-        AuthorizationChecker $checker
+        AuthorisationCheckerInterface $checker
     ) {
         $this->authentication = $authentication;
         $this->checker = $checker;
@@ -37,7 +37,7 @@ final class Security implements SecurityInterface
             return;
         }
 
-        throw new \Exception('no permission');
+        throw PermissionDeniedException::create();
     }
 
     /**
@@ -45,12 +45,12 @@ final class Security implements SecurityInterface
      */
     public function isGranted(EntityInterface $entity, string ...$abilities): void
     {
-        $state = $this->checker->isGranted($abilities, $entity);
+        $state = $this->checker->check($entity, $abilities);
 
         if ($state === true) {
             return;
         }
 
-        throw new \Exception('no permission');
+        throw PermissionDeniedException::create();
     }
 }

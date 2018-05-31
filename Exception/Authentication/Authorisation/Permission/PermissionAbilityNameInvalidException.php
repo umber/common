@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Authentication\Authorisation\Permission;
 
-use Umber\Common\Exception\Aware\CanonicalAwareRuntimeException;
+use Umber\Common\Exception\AbstractRuntimeException;
 
 /**
  * {@inheritdoc}
  */
-final class PermissionAbilityNameInvalidException extends CanonicalAwareRuntimeException
+final class PermissionAbilityNameInvalidException extends AbstractRuntimeException
 {
-    public const E_PERMISSION_ABILITY_NAME_INVALID = 'permission.ability_name_invalid';
-
     /**
      * @return PermissionAbilityNameInvalidException
      */
     public static function create(string $scope, string $ability): self
     {
-        return new self(self::E_PERMISSION_ABILITY_NAME_INVALID, [
+        return new self([
             'scope' => $scope,
             'ability' => $ability,
         ]);
@@ -27,7 +25,7 @@ final class PermissionAbilityNameInvalidException extends CanonicalAwareRuntimeE
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getMessageTemplate(): array
     {
         return [
             'A permission ability should only contain alphabetic characters and hyphens or underscores.',

@@ -21,7 +21,7 @@ final class RequestAuthorisationHeader implements AuthenticationHeaderInterface
     private $header;
 
     /**
-     * @throws RequestAuthorisationHeaderMissingException when the header is missing.
+     * @throws RequestAuthorisationHeaderMissingException When the header is missing.
      */
     public function __construct(Request $request)
     {
@@ -61,7 +61,7 @@ final class RequestAuthorisationHeader implements AuthenticationHeaderInterface
     /**
      * Magic conversion to string.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }

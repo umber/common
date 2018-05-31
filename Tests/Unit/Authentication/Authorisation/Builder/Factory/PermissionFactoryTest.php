@@ -61,7 +61,7 @@ final class PermissionFactoryTest extends TestCase
         self::expectException(PermissionSerialisationNameInvalidException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionSerialisationNameInvalidException::message(),
+                PermissionSerialisationNameInvalidException::getMessageTemplate(),
                 ['permission' => 'product/view']
             )
         );

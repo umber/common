@@ -4,36 +4,52 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Http\Resource;
 
-use Umber\Common\Exception\Http\AbstractHttpException;
+use Umber\Common\Exception\AbstractRuntimeException;
+use Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface;
+use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
 
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * {@inheritdoc}
+ * A resource not found exception.
  */
-final class ResourceNotFoundException extends AbstractHttpException
+final class ResourceNotFoundException extends AbstractRuntimeException implements
+    CanonicalAwareExceptionInterface,
+    HttpAwareExceptionInterface
 {
-    public const E_RESOURCE_NOT_FOUND = 'http.resource_not_found';
-
     /**
      * @return ResourceNotFoundException
      */
     public static function create(string $id): self
     {
-        $parameters = [
+        return new self([
             'id' => $id,
-        ];
-
-        return new self(self::E_RESOURCE_NOT_FOUND, $parameters, Response::HTTP_NOT_FOUND);
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getCanonicalCode(): string
+    {
+        return 'http.resource.not_found';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getStatusCode(): int
+    {
+        return Response::HTTP_NOT_FOUND;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getMessageTemplate(): array
     {
         return [
-            'The resource ("{{id}}") requested was not found.',
+            'The resource ("{{id}}") does not exist.',
         ];
     }
 }

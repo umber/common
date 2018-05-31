@@ -197,7 +197,7 @@ final class PermissionTest extends TestCase
         self::expectException(PermissionScopeNameInvalidException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionScopeNameInvalidException::message(),
+                PermissionScopeNameInvalidException::getMessageTemplate(),
                 ['scope' => $scope]
             )
         );
@@ -271,7 +271,7 @@ final class PermissionTest extends TestCase
         self::expectException(PermissionAbilityNameInvalidException::class);
         self::expectExceptionMessage(
             ExceptionMessageHelper::translate(
-                PermissionAbilityNameInvalidException::message(),
+                PermissionAbilityNameInvalidException::getMessageTemplate(),
                 [
                     'scope' => 'permission-name',
                     'ability' => $ability,

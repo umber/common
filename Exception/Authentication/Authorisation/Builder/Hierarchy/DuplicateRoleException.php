@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Authentication\Authorisation\Builder\Hierarchy;
 
-use Umber\Common\Exception\Authentication\Authorisation\Builder\AbstractAuthorisationRoleHierarchyException;
+use Umber\Common\Exception\AbstractRuntimeException;
 
 /**
  * {@inheritdoc}
  */
-final class DuplicateRoleException extends AbstractAuthorisationRoleHierarchyException
+final class DuplicateRoleException extends AbstractRuntimeException
 {
-    public const E_DUPLICATE_ROLE = 'duplicate_role';
-
     /**
      * @return DuplicateRoleException
      */
     public static function create(string $name): self
     {
-        return new self(self::E_DUPLICATE_ROLE, [
+        return new self([
             'name' => $name,
         ]);
     }
@@ -26,7 +24,7 @@ final class DuplicateRoleException extends AbstractAuthorisationRoleHierarchyExc
     /**
      * {@inheritdoc}
      */
-    public static function message(): array
+    public static function getMessageTemplate(): array
     {
         return [
             'The hierarchy cannot contain duplicate roles.',

@@ -1,25 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Umber\Common\Tests\Unit\Authentication\Framework;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Umber\Common\Authentication\AuthenticationStorage;
 use Umber\Common\Authentication\AuthenticationStorageInterface;
 use Umber\Common\Authentication\Authenticator;
 use Umber\Common\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Common\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
 use Umber\Common\Authentication\Framework\SymfonyAuthenticator;
-use Umber\Common\Authentication\Framework\SymfonyUserTrait;
-use Umber\Common\Authentication\Prototype\UserInterface;
-use Umber\Common\Authentication\Resolver\UserRepositoryResolver;
 use Umber\Common\Authentication\Resolver\UserResolverInterface;
 use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 use Umber\Common\Tests\Model\Authentication\UserTestModel;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
