@@ -13,12 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-final class PermissionDeniedException extends AbstractRuntimeException implements
+final class UnauthorisedException extends AbstractRuntimeException implements
     CanonicalAwareExceptionInterface,
     HttpAwareExceptionInterface
 {
     /**
-     * @return PermissionDeniedException
+     * @return UnauthorisedException
      */
     public static function create(): self
     {
@@ -31,7 +31,7 @@ final class PermissionDeniedException extends AbstractRuntimeException implement
     public static function getMessageTemplate(): array
     {
         return [
-            'You require greater permissions to perform this action.',
+            'Your credentials are invalid.',
         ];
     }
 
@@ -40,7 +40,7 @@ final class PermissionDeniedException extends AbstractRuntimeException implement
      */
     public static function getCanonicalCode(): string
     {
-        return 'http.authorisation.permission.denied';
+        return 'http.authorisation.unauthorised';
     }
 
     /**
@@ -48,6 +48,6 @@ final class PermissionDeniedException extends AbstractRuntimeException implement
      */
     public static function getStatusCode(): int
     {
-        return Response::HTTP_FORBIDDEN;
+        return Response::HTTP_UNAUTHORIZED;
     }
 }

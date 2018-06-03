@@ -9,6 +9,7 @@ use Umber\Common\Authentication\Authorisation\User\UserAuthorisation;
 use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
 use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Authentication\Resolver\UserResolverInterface;
+use Umber\Common\Exception\Authentication\UnauthorisedException;
 
 final class Authenticator
 {
@@ -35,7 +36,7 @@ final class Authenticator
         $user = $this->userResolver->resolve($header);
 
         if ($user === null) {
-            throw new \Exception('missing user');
+            throw UnauthorisedException::create();
         }
 
         $hierarchy = $this->authorisationHierarchyResolver->resolve();
