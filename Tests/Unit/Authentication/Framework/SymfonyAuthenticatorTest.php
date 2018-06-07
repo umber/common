@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Umber\Common\Tests\Unit\Authentication\Framework;
 
-use Umber\Common\Authentication\AuthenticationStorageInterface;
 use Umber\Common\Authentication\Authenticator;
 use Umber\Common\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
 use Umber\Common\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
 use Umber\Common\Authentication\Framework\SymfonyAuthenticator;
-use Umber\Common\Authentication\Resolver\UserResolverInterface;
+use Umber\Common\Authentication\Resolver\Credential\User\UserCredential;
+use Umber\Common\Authentication\Resolver\CredentialResolverInterface;
+use Umber\Common\Authentication\Storage\CredentialStorageInterface;
 use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 use Umber\Common\Tests\Model\Authentication\UserTestModel;
 
@@ -38,16 +39,21 @@ final class SymfonyAuthenticatorTest extends TestCase
      */
     public function withInvalidTokenNoSupport(): void
     {
-        /** @var UserResolverInterface|MockObject $userResolver */
-        $userResolver = $this->createMock(UserResolverInterface::class);
-
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
 
-        /** @var AuthenticationStorageInterface|MockObject $storage */
-        $storage = $this->createMock(AuthenticationStorageInterface::class);
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
 
-        $authenticator = new Authenticator($storage, $authorisationHierarchyResolver, $userResolver);
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
+
         $symfony = new SymfonyAuthenticator($authenticator);
 
         /** @var TokenInterface|MockObject $token */
@@ -68,20 +74,25 @@ final class SymfonyAuthenticatorTest extends TestCase
      */
     public function canSupportPreAuthenticatedTokenOnly(): void
     {
-        /** @var UserResolverInterface|MockObject $userResolver */
-        $userResolver = $this->createMock(UserResolverInterface::class);
-        $userResolver->expects(self::never())
-            ->method('resolve');
-
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
         $authorisationHierarchyResolver->expects(self::never())
             ->method('resolve');
 
-        /** @var AuthenticationStorageInterface|MockObject $storage */
-        $storage = $this->createMock(AuthenticationStorageInterface::class);
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
+        $credentialResolver->expects(self::never())
+            ->method('resolve');
 
-        $authenticator = new Authenticator($storage, $authorisationHierarchyResolver, $userResolver);
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
+
         $symfony = new SymfonyAuthenticator($authenticator);
 
         $token = new PreAuthenticatedToken(
@@ -108,12 +119,6 @@ final class SymfonyAuthenticatorTest extends TestCase
     {
         $user = new UserTestModel();
 
-        /** @var UserResolverInterface|MockObject $userResolver */
-        $userResolver = $this->createMock(UserResolverInterface::class);
-        $userResolver->expects(self::once())
-            ->method('resolve')
-            ->willReturn($user);
-
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
         $authorisationHierarchyResolver->expects(self::once())
@@ -122,12 +127,25 @@ final class SymfonyAuthenticatorTest extends TestCase
                 AuthorisationHierarchyFixture::create()
             );
 
-        /** @var AuthenticationStorageInterface|MockObject $storage */
-        $storage = $this->createMock(AuthenticationStorageInterface::class);
-        $storage->expects(self::once())
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
+        $credentialResolver->expects(self::once())
+            ->method('resolve')
+            ->willReturn(
+                new UserCredential($user)
+            );
+
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+        $credentialStorage->expects(self::once())
             ->method('authorise');
 
-        $authenticator = new Authenticator($storage, $authorisationHierarchyResolver, $userResolver);
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
+
         $symfony = new SymfonyAuthenticator($authenticator);
 
         $request = new Request();
@@ -154,27 +172,28 @@ final class SymfonyAuthenticatorTest extends TestCase
     {
         $user = new UserTestModel();
 
-        /** @var UserResolverInterface|MockObject $userResolver */
-        $userResolver = $this->createMock(UserResolverInterface::class);
-        $userResolver->expects(self::never())
-            ->method('resolve');
-
         /** @var AuthorisationHierarchyResolverInterface|MockObject $authorisationHierarchyResolver */
         $authorisationHierarchyResolver = $this->createMock(AuthorisationHierarchyResolverInterface::class);
         $authorisationHierarchyResolver->expects(self::never())
             ->method('resolve');
 
-        /** @var AuthenticationStorageInterface|MockObject $storage */
-        $storage = $this->createMock(AuthenticationStorageInterface::class);
-        $storage->expects(self::once())
+        /** @var CredentialResolverInterface|MockObject $credentialResolver */
+        $credentialResolver = $this->createMock(CredentialResolverInterface::class);
+        $credentialResolver->expects(self::never())
+            ->method('resolve');
+
+        /** @var CredentialStorageInterface|MockObject $credentialStorage */
+        $credentialStorage = $this->createMock(CredentialStorageInterface::class);
+        $credentialStorage->expects(self::once())
             ->method('getUser')
             ->willReturn($user);
 
-        $storage->expects(self::once())
-            ->method('isAuthenticated')
-            ->willReturn(true);
+        $authenticator = new Authenticator(
+            $authorisationHierarchyResolver,
+            $credentialResolver,
+            $credentialStorage
+        );
 
-        $authenticator = new Authenticator($storage, $authorisationHierarchyResolver, $userResolver);
         $symfony = new SymfonyAuthenticator($authenticator);
 
         /** @var UserProviderInterface|MockObject $userProvider */

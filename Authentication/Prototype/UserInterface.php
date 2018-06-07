@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Prototype;
 
-use Umber\Common\Authentication\Authorisation\PermissionInterface;
-use Umber\Common\Authentication\Authorisation\RoleInterface;
-
+/**
+ * A user interface with core requirements for authentication.
+ */
 interface UserInterface
 {
-    public function getEmail(): string;
-
     /**
+     * Return the serialised user authorisation roles.
+     *
      * @return string[]
      */
     public function getAuthorisationRoles(): array;
 
     /**
+     * Return the serialised user authorisation permissions.
+     *
      * @return string[]
      */
     public function getAuthorisationPermissions(): array;
-
-    /**
-     * @param RoleInterface[] $roles
-     * @param PermissionInterface[] $permissions
-     */
-//    public function setAuthorisationDetails(array $roles, array $permissions): void;
 }

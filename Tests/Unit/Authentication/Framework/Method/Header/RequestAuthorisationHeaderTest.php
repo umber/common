@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Umber\Common\Tests\Unit\Authentication\Framework\Method\Header;
 
 use Umber\Common\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
-use Umber\Common\Exception\Authentication\Framework\Method\Header\RequestAuthorisationHeaderMissingException;
+use Umber\Common\Exception\Authentication\Authorisation\MissingCredentialsException;
 use Umber\Common\Exception\ExceptionMessageHelper;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ final class RequestAuthorisationHeaderTest extends TestCase
         $header = new RequestAuthorisationHeader($request);
 
         self::assertEquals('some-type', $header->getType());
-        self::assertEquals('some-value', $header->getValue());
+        self::assertEquals('some-value', $header->getCredentials());
     }
 
     /**
@@ -52,7 +52,7 @@ final class RequestAuthorisationHeaderTest extends TestCase
         $header = new RequestAuthorisationHeader($request);
 
         self::assertEquals('bearer', $header->getType());
-        self::assertEquals('SomeValueHERE', $header->getValue());
+        self::assertEquals('SomeValueHERE', $header->getCredentials());
     }
 
     /**
@@ -85,9 +85,9 @@ final class RequestAuthorisationHeaderTest extends TestCase
      */
     public function withMissingAuthorisationHeaderThrow(): void
     {
-        self::expectException(RequestAuthorisationHeaderMissingException::class);
+        self::expectException(MissingCredentialsException::class);
         self::expectExceptionMessage(ExceptionMessageHelper::translate(
-            RequestAuthorisationHeaderMissingException::getMessageTemplate()
+            MissingCredentialsException::getMessageTemplate()
         ));
 
         new RequestAuthorisationHeader(new Request());

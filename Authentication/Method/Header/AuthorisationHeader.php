@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Method\Header;
 
-use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
+use Umber\Common\Authentication\Method\AuthorisationHeaderInterface;
 
 /**
- * {@inheritdoc}
+ * The authorisation header.
+ *
+ * Accepts an unrestricted type and credentials.
  */
-final class AuthorisationHeader implements AuthenticationHeaderInterface
+final class AuthorisationHeader implements AuthorisationHeaderInterface
 {
     private $type;
-    private $value;
+    private $credentials;
 
-    public function __construct(string $type, string $value)
+    public function __construct(string $type, string $credentials)
     {
         $this->type = strtolower($type);
-        $this->value = $value;
+        $this->credentials = $credentials;
     }
 
     /**
@@ -31,9 +33,9 @@ final class AuthorisationHeader implements AuthenticationHeaderInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue(): string
+    public function getCredentials(): string
     {
-        return $this->value;
+        return $this->credentials;
     }
 
     /**
@@ -41,7 +43,7 @@ final class AuthorisationHeader implements AuthenticationHeaderInterface
      */
     public function toString(): string
     {
-        return sprintf('%s %s', ucwords($this->type), $this->value);
+        return sprintf('%s %s', ucwords($this->type), $this->credentials);
     }
 
     /**

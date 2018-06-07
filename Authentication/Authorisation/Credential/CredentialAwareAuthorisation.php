@@ -2,29 +2,40 @@
 
 declare(strict_types=1);
 
-namespace Umber\Common\Authentication\Authorisation\User;
+namespace Umber\Common\Authentication\Authorisation\Credential;
 
 use Umber\Common\Authentication\Authorisation\Authorisation;
 use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;
 use Umber\Common\Authentication\Prototype\UserInterface;
+use Umber\Common\Authentication\Resolver\Credential\CredentialInterface;
 
 /**
  * {@inheritdoc}
  */
-final class UserAuthorisation implements UserAuthorisationInterface
+final class CredentialAwareAuthorisation implements CredentialAwareAuthorisationInterface
 {
-    private $user;
+    private $credentials;
     private $authorisation;
 
-    public function __construct(AuthorisationHierarchy $hierarchy, UserInterface $user)
+    public function __construct(CredentialInterface $credentials, AuthorisationHierarchy $hierarchy)
     {
-        $this->user = $user;
+        $this->credentials = $credentials;
+
+        $user = $credentials->getUser();
 
         $this->authorisation = new Authorisation(
-            $hierarchy,
             $user->getAuthorisationRoles(),
-            $user->getAuthorisationPermissions()
+            $user->getAuthorisationPermissions(),
+            $hierarchy
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCredentials(): CredentialInterface
+    {
+        return $this->credentials;
     }
 
     /**
@@ -32,7 +43,7 @@ final class UserAuthorisation implements UserAuthorisationInterface
      */
     public function getUser(): UserInterface
     {
-        return $this->user;
+        return $this->credentials->getUser();
     }
 
     /**

@@ -4,16 +4,27 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Method\Header;
 
-use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
+use Umber\Common\Authentication\Method\AuthorisationHeaderInterface;
+use Umber\Common\Exception\Authentication\Method\Header\MalformedAuthorisationHeaderException;
 
-final class StringAuthorisationHeader implements AuthenticationHeaderInterface
+/**
+ * An implementation of authorisation header that accepts the string representation.
+ */
+final class StringAuthorisationHeader implements AuthorisationHeaderInterface
 {
-    /** @var AuthenticationHeaderInterface */
+    /** @var AuthorisationHeader */
     private $header;
 
+    /**
+     * @throws MalformedAuthorisationHeaderException When the authorisation header is malformed.
+     */
     public function __construct(string $string)
     {
-        $parts = explode(' ', $string);
+        $parts = explode(' ', $string, 2);
+
+        if (count($parts) === 1) {
+            throw MalformedAuthorisationHeaderException::create($string);
+        }
 
         $this->header = new AuthorisationHeader(
             $parts[0],
@@ -32,9 +43,9 @@ final class StringAuthorisationHeader implements AuthenticationHeaderInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue(): string
+    public function getCredentials(): string
     {
-        return $this->header->getValue();
+        return $this->header->getCredentials();
     }
 
     /**

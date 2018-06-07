@@ -9,7 +9,7 @@ use Umber\Common\Authentication\Prototype\UserInterface as CommonUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 /**
- * A trait that should modify the common user to become like Symfony expects.
+ * A trait that should modify the umber common user to become like Symfony expects.
  *
  * @mixin SymfonyUserInterface
  * @mixin CommonUserInterface

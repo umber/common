@@ -26,7 +26,7 @@ final class AuthorisationHeaderTest extends TestCase
         $header = new AuthorisationHeader('some-type', 'some-value');
 
         self::assertEquals('some-type', $header->getType());
-        self::assertEquals('some-value', $header->getValue());
+        self::assertEquals('some-value', $header->getCredentials());
     }
 
     /**
@@ -42,7 +42,7 @@ final class AuthorisationHeaderTest extends TestCase
         $header = new AuthorisationHeader('BEARer', 'SomeValueHERE');
 
         self::assertEquals('bearer', $header->getType());
-        self::assertEquals('SomeValueHERE', $header->getValue());
+        self::assertEquals('SomeValueHERE', $header->getCredentials());
     }
 
     /**

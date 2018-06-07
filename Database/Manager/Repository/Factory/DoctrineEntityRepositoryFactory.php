@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Database\Manager\Repository\Factory;
 
-use Umber\Common\Authentication\AuthenticationStorageInterface;
+use Umber\Common\Authentication\Storage\CredentialStorageInterface;
 use Umber\Common\Database\EntityRepositoryFactoryInterface;
 use Umber\Common\Database\EntityRepositoryInterface;
 use Umber\Common\Database\Manager\Repository\AbstractDoctrineEntityRepository;
@@ -24,7 +24,7 @@ final class DoctrineEntityRepositoryFactory implements EntityRepositoryFactoryIn
     public function __construct(
         RegistryInterface $registry,
         PaginatorFactoryInterface $paginatorFactory,
-        AuthenticationStorageInterface $authenticationStorage
+        CredentialStorageInterface $authenticationStorage
     ) {
         $this->registry = $registry;
         $this->paginatorFactory = $paginatorFactory;

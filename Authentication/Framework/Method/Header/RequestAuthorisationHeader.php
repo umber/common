@@ -4,31 +4,35 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Framework\Method\Header;
 
-use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
+use Umber\Common\Authentication\Method\AuthorisationHeaderInterface;
 use Umber\Common\Authentication\Method\Header\StringAuthorisationHeader;
-use Umber\Common\Exception\Authentication\Framework\Method\Header\RequestAuthorisationHeaderMissingException;
+use Umber\Common\Exception\Authentication\Authorisation\MissingCredentialsException;
+use Umber\Common\Exception\Authentication\Method\Header\MalformedAuthorisationHeaderException;
 
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * {@inheritdoc}
+ * An implementation of authorisation header that accepts a Symfony request.
+ *
+ * This class will attempt to locate and parse the header string from a Symfony request.
  */
-final class RequestAuthorisationHeader implements AuthenticationHeaderInterface
+final class RequestAuthorisationHeader implements AuthorisationHeaderInterface
 {
     public const AUTHORISATION_HEADER = 'Authorization';
 
-    /** @var AuthenticationHeaderInterface */
+    /** @var StringAuthorisationHeader */
     private $header;
 
     /**
-     * @throws RequestAuthorisationHeaderMissingException When the header is missing.
+     * @throws MissingCredentialsException When the request is missing authorisation header.
+     * @throws MalformedAuthorisationHeaderException When the authorisation header is malformed.
      */
     public function __construct(Request $request)
     {
         $string = $request->headers->get(self::AUTHORISATION_HEADER, null);
 
         if ($string === null) {
-            throw RequestAuthorisationHeaderMissingException::create();
+            throw MissingCredentialsException::create();
         }
 
         $this->header = new StringAuthorisationHeader($string);
@@ -45,9 +49,9 @@ final class RequestAuthorisationHeader implements AuthenticationHeaderInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue(): string
+    public function getCredentials(): string
     {
-        return $this->header->getValue();
+        return $this->header->getCredentials();
     }
 
     /**

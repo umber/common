@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Security;
 
-use Umber\Common\Authentication\AuthenticationStorageInterface;
 use Umber\Common\Authentication\Security\Entity\AuthorisationCheckerInterface;
+use Umber\Common\Authentication\Storage\CredentialStorageInterface;
 use Umber\Common\Database\EntityInterface;
 use Umber\Common\Exception\Authentication\PermissionDeniedException;
 
@@ -18,7 +18,7 @@ final class Security implements SecurityInterface
     private $checker;
 
     public function __construct(
-        AuthenticationStorageInterface $authentication,
+        CredentialStorageInterface $authentication,
         AuthorisationCheckerInterface $checker
     ) {
         $this->authentication = $authentication;

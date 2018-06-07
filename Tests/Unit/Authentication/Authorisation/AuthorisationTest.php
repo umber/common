@@ -26,7 +26,7 @@ final class AuthorisationTest extends TestCase
     public function checkBasicUsage(): void
     {
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, [], []);
+        $authorisation = new Authorisation([], [], $hierarchy);
 
         self::assertEquals([], $authorisation->getRoles());
         self::assertEquals([], $authorisation->getPermissions());
@@ -49,7 +49,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, $roles, []);
+        $authorisation = new Authorisation($roles, [], $hierarchy);
 
         self::assertFalse($authorisation->hasRole('system'));
     }
@@ -70,7 +70,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, $roles, []);
+        $authorisation = new Authorisation($roles, [], $hierarchy);
 
         self::assertTrue($authorisation->hasRole('manager'));
     }
@@ -91,7 +91,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, [], $permissions);
+        $authorisation = new Authorisation([], $permissions, $hierarchy);
 
         self::assertFalse($authorisation->hasPermission('user', 'view'));
     }
@@ -112,7 +112,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, [], $permissions);
+        $authorisation = new Authorisation([], $permissions, $hierarchy);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -132,7 +132,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, $roles, []);
+        $authorisation = new Authorisation($roles, [], $hierarchy);
 
         $expected = [
             new Permission('blog', ['view']),
@@ -157,7 +157,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, $roles, []);
+        $authorisation = new Authorisation($roles, [], $hierarchy);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -181,7 +181,7 @@ final class AuthorisationTest extends TestCase
         ];
 
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new Authorisation($hierarchy, $roles, $permissions);
+        $authorisation = new Authorisation($roles, $permissions, $hierarchy);
 
         $permissions = [
             new Permission('product', ['view']),

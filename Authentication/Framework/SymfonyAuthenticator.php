@@ -6,6 +6,9 @@ namespace Umber\Common\Authentication\Framework;
 
 use Umber\Common\Authentication\Authenticator;
 use Umber\Common\Authentication\Framework\Method\Header\RequestAuthorisationHeader;
+use Umber\Common\Exception\Authentication\Authorisation\MissingCredentialsException;
+use Umber\Common\Exception\Authentication\Method\Header\MalformedAuthorisationHeaderException;
+use Umber\Common\Exception\Authentication\UnauthorisedException;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
@@ -14,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 
 /**
- * {@inheritdoc}
+ * An authenticator implementation for Symfony.
  */
 final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
 {
@@ -36,16 +39,26 @@ final class SymfonyAuthenticator implements SimplePreAuthenticatorInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws UnauthorisedException When the authorisation header is missing.
+     * @throws UnauthorisedException When the authorisation header is malformed.
+     * @throws UnauthorisedException When the credentials cannot be resolved.
      */
     public function createToken(Request $request, $provider)
     {
-        $header = new RequestAuthorisationHeader($request);
+        try {
+            $header = new RequestAuthorisationHeader($request);
+        } catch (MalformedAuthorisationHeaderException $exception) {
+            throw UnauthorisedException::create($exception);
+        } catch (MissingCredentialsException $exception) {
+            throw UnauthorisedException::create($exception);
+        }
 
         $this->authenticator->authenticate($header);
 
         return new PreAuthenticatedToken(
             $header->getType(),
-            $header->getValue(),
+            $header->getCredentials(),
             $provider
         );
     }

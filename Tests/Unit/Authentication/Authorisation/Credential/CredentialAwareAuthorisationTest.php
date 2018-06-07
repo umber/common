@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Umber\Common\Tests\Unit\Authentication\Authorisation\User;
+namespace Umber\Common\Tests\Unit\Authentication\Authorisation\Credential;
 
+use Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation;
 use Umber\Common\Authentication\Authorisation\Permission;
-use Umber\Common\Authentication\Authorisation\User\UserAuthorisation;
 use Umber\Common\Authentication\Prototype\UserInterface;
+use Umber\Common\Authentication\Resolver\Credential\CredentialInterface;
 use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -15,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * {@inheritdoc}
  */
-final class UserAuthorisationTest extends TestCase
+final class CredentialAwareAuthorisationTest extends TestCase
 {
     /**
      * @test
@@ -23,7 +24,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -39,8 +40,14 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::exactly(2))
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         self::assertSame($user, $authorisation->getUser());
         self::assertEquals([], $authorisation->getRoles());
@@ -54,7 +61,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -73,8 +80,14 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         self::assertFalse($authorisation->hasRole('system'));
     }
@@ -85,7 +98,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -104,8 +117,14 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         self::assertTrue($authorisation->hasRole('manager'));
     }
@@ -116,7 +135,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -135,8 +154,14 @@ final class UserAuthorisationTest extends TestCase
                 'blog:view',
             ]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         self::assertFalse($authorisation->hasPermission('user', 'view'));
     }
@@ -147,7 +172,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -166,8 +191,14 @@ final class UserAuthorisationTest extends TestCase
                 'blog:view',
             ]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -178,7 +209,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -196,8 +227,14 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         $expected = [
             new Permission('blog', ['view']),
@@ -213,7 +250,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -231,8 +268,14 @@ final class UserAuthorisationTest extends TestCase
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -243,7 +286,7 @@ final class UserAuthorisationTest extends TestCase
      * @group unit
      * @group authentication
      *
-     * @covers \Umber\Common\Authentication\Authorisation\User\UserAuthorisation
+     * @covers \Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation
      *
      * @throws \ReflectionException
      */
@@ -263,8 +306,14 @@ final class UserAuthorisationTest extends TestCase
                 'product:view',
             ]);
 
+        /** @var CredentialInterface|MockObject $credential */
+        $credential = $this->createMock(CredentialInterface::class);
+        $credential->expects(self::once())
+            ->method('getUser')
+            ->willReturn($user);
+
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new UserAuthorisation($hierarchy, $user);
+        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
 
         $permissions = [
             new Permission('product', ['view']),

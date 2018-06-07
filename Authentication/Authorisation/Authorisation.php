@@ -24,7 +24,7 @@ final class Authorisation implements AuthorisationInterface
      * @param string[] $roles
      * @param string[] $permissions
      */
-    public function __construct(AuthorisationHierarchy $hierarchy, array $roles, array $permissions)
+    public function __construct(array $roles, array $permissions, AuthorisationHierarchy $hierarchy)
     {
         $this->roles = $hierarchy->resolveRolesByArray($roles);
         $this->permissions = $hierarchy->resolvePermissionsByArray($permissions);

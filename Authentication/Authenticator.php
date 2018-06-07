@@ -5,61 +5,69 @@ declare(strict_types=1);
 namespace Umber\Common\Authentication;
 
 use Umber\Common\Authentication\Authorisation\Builder\Resolver\AuthorisationHierarchyResolverInterface;
-use Umber\Common\Authentication\Authorisation\User\UserAuthorisation;
-use Umber\Common\Authentication\Method\AuthenticationHeaderInterface;
+use Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation;
 use Umber\Common\Authentication\Prototype\UserInterface;
-use Umber\Common\Authentication\Resolver\UserResolverInterface;
+use Umber\Common\Authentication\Resolver\CredentialResolverInterface;
+use Umber\Common\Authentication\Storage\CredentialStorageInterface;
+use Umber\Common\Exception\Authentication\Resolver\CannotResolveAuthenticationMethodException;
+use Umber\Common\Exception\Authentication\Resolver\UnsupportedAuthenticationMethodException;
 use Umber\Common\Exception\Authentication\UnauthorisedException;
 
+/**
+ * An authenticator for resolving and storing user credentials.
+ */
 final class Authenticator
 {
-    private $authenticationStorage;
     private $authorisationHierarchyResolver;
-    private $userResolver;
+    private $credentialResolver;
+    private $credentialStorage;
 
     public function __construct(
-        AuthenticationStorageInterface $authenticationStorage,
         AuthorisationHierarchyResolverInterface $authorisationHierarchyResolver,
-        UserResolverInterface $userResolver
+        CredentialResolverInterface $credentialResolver,
+        CredentialStorageInterface $credentialStorage
     ) {
-        $this->authenticationStorage = $authenticationStorage;
         $this->authorisationHierarchyResolver = $authorisationHierarchyResolver;
-        $this->userResolver = $userResolver;
+        $this->credentialResolver = $credentialResolver;
+        $this->credentialStorage = $credentialStorage;
     }
 
     /**
+     * Attempt to authenticate using the given authentication method.
      *
-     * @throws \Exception
+     * @throws UnauthorisedException When the user cannot be resolved.
      */
-    public function authenticate(AuthenticationHeaderInterface $header): void
+    public function authenticate(AuthenticationMethodInterface $method): void
     {
-        $user = $this->userResolver->resolve($header);
-
-        if ($user === null) {
-            throw UnauthorisedException::create();
+        try {
+            $credentials = $this->credentialResolver->resolve($method);
+        } catch (CannotResolveAuthenticationMethodException $exception) {
+            throw UnauthorisedException::create($exception);
+        } catch (UnsupportedAuthenticationMethodException $exception) {
+            throw UnauthorisedException::create($exception);
         }
 
         $hierarchy = $this->authorisationHierarchyResolver->resolve();
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
-        $authorisation = new UserAuthorisation($hierarchy, $user);
-
-        $this->authenticationStorage->authorise($authorisation);
+        $this->credentialStorage->authorise($authorisation);
     }
 
     /**
-     * @throws \Exception
+     * Returns the current authenticated user.
+     *
+     * @throws UnauthorisedException When the user has not been authenticated.
      */
     public function getUser(): UserInterface
     {
-        if (!$this->isAuthenticated()) {
-            throw new \Exception('not authenticated');
-        }
-
-        return $this->authenticationStorage->getUser();
+        return $this->credentialStorage->getUser();
     }
 
+    /**
+     * Check if a user has been authenticated.
+     */
     public function isAuthenticated(): bool
     {
-        return $this->authenticationStorage->isAuthenticated();
+        return $this->credentialStorage->isAuthenticated();
     }
 }
