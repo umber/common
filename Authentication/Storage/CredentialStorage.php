@@ -6,6 +6,9 @@ namespace Umber\Common\Authentication\Storage;
 
 use Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisationInterface;
 use Umber\Common\Authentication\Prototype\UserInterface;
+use Umber\Common\Authentication\Resolver\Credential\CredentialInterface;
+use Umber\Common\Authentication\Resolver\Credential\User\UserCredentialInterface;
+use Umber\Common\Exception\Authentication\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Common\Exception\Authentication\UnauthorisedException;
 
 /**
@@ -27,13 +30,13 @@ final class CredentialStorage implements CredentialStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function getUser(): UserInterface
+    public function getCredentials(): CredentialInterface
     {
         if ($this->isAuthenticated() === false) {
             throw UnauthorisedException::create();
         }
 
-        return $this->authorisation->getUser();
+        return $this->authorisation->getCredentials();
     }
 
     /**
@@ -46,6 +49,24 @@ final class CredentialStorage implements CredentialStorageInterface
         }
 
         return $this->authorisation;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUser(): UserInterface
+    {
+        if ($this->isAuthenticated() === false) {
+            throw UnauthorisedException::create();
+        }
+
+        $credentials = $this->authorisation->getCredentials();
+
+        if ($credentials instanceof UserCredentialInterface) {
+            return $credentials->getUser();
+        }
+
+        throw CannotResolveAuthenticatedUserException::create();
     }
 
     /**

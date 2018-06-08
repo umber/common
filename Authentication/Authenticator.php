@@ -9,6 +9,7 @@ use Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthoris
 use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Authentication\Resolver\CredentialResolverInterface;
 use Umber\Common\Authentication\Storage\CredentialStorageInterface;
+use Umber\Common\Exception\Authentication\Resolver\CannotResolveAuthenticatedUserException;
 use Umber\Common\Exception\Authentication\Resolver\CannotResolveAuthenticationMethodException;
 use Umber\Common\Exception\Authentication\Resolver\UnsupportedAuthenticationMethodException;
 use Umber\Common\Exception\Authentication\UnauthorisedException;
@@ -57,6 +58,7 @@ final class Authenticator
      * Returns the current authenticated user.
      *
      * @throws UnauthorisedException When the user has not been authenticated.
+     * @throws CannotResolveAuthenticatedUserException When the user is not resolved with the credentials.
      */
     public function getUser(): UserInterface
     {

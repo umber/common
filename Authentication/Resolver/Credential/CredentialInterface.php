@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace Umber\Common\Authentication\Resolver\Credential;
 
-use Umber\Common\Authentication\Prototype\UserInterface;
-
 /**
- * An object that contains the resolved credentials.
+ * An object that contains resolved credentials.
  */
 interface CredentialInterface
 {
     /**
-     * Return the resolved user.
+     * Return the serialised authorisation roles.
+     *
+     * @return string[]
      */
-    public function getUser(): UserInterface;
+    public function getAuthorisationRoles(): array;
+
+    /**
+     * Return the serialised authorisation permissions.
+     *
+     * @return string[]
+     */
+    public function getAuthorisationPermissions(): array;
 }

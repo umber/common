@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Umber\Common\Authentication\Resolver\Credential\User;
 
 use Umber\Common\Authentication\Prototype\UserInterface;
-use Umber\Common\Authentication\Resolver\Credential\CredentialInterface;
 
 /**
  * A credential implementation that is a pass-through for user instances.
  */
-final class UserCredential implements CredentialInterface
+final class UserCredential implements UserCredentialInterface
 {
     private $user;
 
@@ -25,5 +24,21 @@ final class UserCredential implements CredentialInterface
     public function getUser(): UserInterface
     {
         return $this->user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAuthorisationRoles(): array
+    {
+        return $this->user->getAuthorisationRoles();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAuthorisationPermissions(): array
+    {
+        return $this->user->getAuthorisationPermissions();
     }
 }

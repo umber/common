@@ -6,7 +6,6 @@ namespace Umber\Common\Authentication\Authorisation\Credential;
 
 use Umber\Common\Authentication\Authorisation\Authorisation;
 use Umber\Common\Authentication\Authorisation\Builder\AuthorisationHierarchy;
-use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Authentication\Resolver\Credential\CredentialInterface;
 
 /**
@@ -21,11 +20,9 @@ final class CredentialAwareAuthorisation implements CredentialAwareAuthorisation
     {
         $this->credentials = $credentials;
 
-        $user = $credentials->getUser();
-
         $this->authorisation = new Authorisation(
-            $user->getAuthorisationRoles(),
-            $user->getAuthorisationPermissions(),
+            $credentials->getAuthorisationRoles(),
+            $credentials->getAuthorisationPermissions(),
             $hierarchy
         );
     }
@@ -36,14 +33,6 @@ final class CredentialAwareAuthorisation implements CredentialAwareAuthorisation
     public function getCredentials(): CredentialInterface
     {
         return $this->credentials;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUser(): UserInterface
-    {
-        return $this->credentials->getUser();
     }
 
     /**

@@ -6,7 +6,6 @@ namespace Umber\Common\Tests\Unit\Authentication\Authorisation\Credential;
 
 use Umber\Common\Authentication\Authorisation\Credential\CredentialAwareAuthorisation;
 use Umber\Common\Authentication\Authorisation\Permission;
-use Umber\Common\Authentication\Prototype\UserInterface;
 use Umber\Common\Authentication\Resolver\Credential\CredentialInterface;
 use Umber\Common\Tests\Fixture\Authentication\AuthorisationHierarchyFixture;
 
@@ -30,26 +29,19 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function checkBasicUsage(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::exactly(2))
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
-        self::assertSame($user, $authorisation->getUser());
         self::assertEquals([], $authorisation->getRoles());
         self::assertEquals([], $authorisation->getPermissions());
         self::assertEquals([], $authorisation->getPassivePermissions());
@@ -67,27 +59,21 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canCheckHasRoleMissing(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
                 'admin',
             ]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         self::assertFalse($authorisation->hasRole('system'));
     }
@@ -104,27 +90,21 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canCheckHasRoleFound(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
                 'admin',
             ]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         self::assertTrue($authorisation->hasRole('manager'));
     }
@@ -141,27 +121,21 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canCheckHasPermissionMissing(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([
                 'product:view',
                 'blog:view',
             ]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         self::assertFalse($authorisation->hasPermission('user', 'view'));
     }
@@ -178,27 +152,21 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canCheckHasPermissionFound(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([
                 'product:view',
                 'blog:view',
             ]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -215,26 +183,20 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canGetPassivePermissions(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
             ]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         $expected = [
             new Permission('blog', ['view']),
@@ -256,26 +218,20 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canCheckHasPassivePermission(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
             ]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         self::assertTrue($authorisation->hasPermission('product', 'view'));
     }
@@ -292,28 +248,22 @@ final class CredentialAwareAuthorisationTest extends TestCase
      */
     public function canExpandRolePassivePermissions(): void
     {
-        /** @var UserInterface|MockObject $user */
-        $user = $this->createMock(UserInterface::class);
-        $user->expects(self::once())
+        /** @var CredentialInterface|MockObject $credentials */
+        $credentials = $this->createMock(CredentialInterface::class);
+        $credentials->expects(self::once())
             ->method('getAuthorisationRoles')
             ->willReturn([
                 'manager',
             ]);
 
-        $user->expects(self::once())
+        $credentials->expects(self::once())
             ->method('getAuthorisationPermissions')
             ->willReturn([
                 'product:view',
             ]);
 
-        /** @var CredentialInterface|MockObject $credential */
-        $credential = $this->createMock(CredentialInterface::class);
-        $credential->expects(self::once())
-            ->method('getUser')
-            ->willReturn($user);
-
         $hierarchy = AuthorisationHierarchyFixture::create();
-        $authorisation = new CredentialAwareAuthorisation($credential, $hierarchy);
+        $authorisation = new CredentialAwareAuthorisation($credentials, $hierarchy);
 
         $permissions = [
             new Permission('product', ['view']),
