@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Umber\Common\Database\Manager\Repository;
 
-use Umber\Common\Authentication\Storage\CredentialStorageInterface;
 use Umber\Common\Database\EntityRepositoryInterface;
 use Umber\Common\Database\Pagination\PaginatorFactoryInterface;
 
@@ -23,18 +22,15 @@ abstract class AbstractDoctrineEntityRepository implements EntityRepositoryInter
     private $entity;
     private $entityManager;
     private $paginatorFactory;
-    private $authenticationStorage;
 
     public function __construct(
         string $entity,
         EntityManagerInterface $entityManager,
-        PaginatorFactoryInterface $paginatorFactory,
-        CredentialStorageInterface $authenticationStorage
+        PaginatorFactoryInterface $paginatorFactory
     ) {
         $this->entity = $entity;
         $this->entityManager = $entityManager;
         $this->paginatorFactory = $paginatorFactory;
-        $this->authenticationStorage = $authenticationStorage;
     }
 
     /**
@@ -43,14 +39,6 @@ abstract class AbstractDoctrineEntityRepository implements EntityRepositoryInter
     final protected function getPaginatorFactory(): PaginatorFactoryInterface
     {
         return $this->paginatorFactory;
-    }
-
-    /**
-     * Return the authentication storage.
-     */
-    final protected function getAuthenticationStorage(): CredentialStorageInterface
-    {
-        return $this->authenticationStorage;
     }
 
     /**
