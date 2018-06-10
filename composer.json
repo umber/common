@@ -3,6 +3,10 @@
   "description": "Umber Common",
   "type": "library",
 
+  "authors": [
+    { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }
+  ],
+
   "require": {
     "php": ">=7.1",
 
@@ -14,12 +18,23 @@
   "autoload": {
     "psr-4": {
       "Umber\\Common\\": "."
-    }
+    },
+    "exclude-from-classmap": [
+      "Tests"
+    ]
   },
 
   "extra": {
     "branch-alias": {
-      "dev-develop": "0.1.x-dev"
+      "dev-develop": "0.1-dev"
     }
+  },
+
+  "archive": {
+    "exclude": [
+      "!vendor",
+      "*phpunit.xml",
+      ".travis.yml"
+    ]
   }
 }
