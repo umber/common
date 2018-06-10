@@ -2,6 +2,7 @@
   "name": "umber/common",
   "description": "Umber Common",
   "type": "library",
+  "license": "MIT",
 
   "authors": [
     { "name": "Matthew Rose", "email": "matt.usurp@gmail.com" }
