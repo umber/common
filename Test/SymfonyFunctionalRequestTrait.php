@@ -32,6 +32,15 @@ trait SymfonyFunctionalRequestTrait
     }
 
     /**
+     * Remove authentication.
+     */
+    protected function removeAuthenticationCredentials(): void
+    {
+        $this->authenticationType = null;
+        $this->authenticationCredentials = null;
+    }
+
+    /**
      * Make simplified requests.
      *
      * @param mixed[]|null $parameters
