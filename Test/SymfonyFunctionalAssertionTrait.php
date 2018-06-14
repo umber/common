@@ -26,11 +26,12 @@ trait SymfonyFunctionalAssertionTrait
         $json = json_decode($message, true);
 
         if (is_array($json)) {
+            self::assertEquals('application/json', $response->headers->get('Content-Type'), $message);
+
             $message = json_encode($json, JSON_PRETTY_PRINT);
         }
 
         self::assertEquals($status, $response->getStatusCode(), $message);
-        self::assertEquals('application/json', $response->headers->get('Content-Type'), $message);
     }
 
     /**
