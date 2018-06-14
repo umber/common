@@ -25,8 +25,6 @@ trait SymfonyFunctionalAssertionTrait
         /** @var array|null $json */
         $json = json_decode($message, true);
 
-        self::assertInternalType('array', $json, $message);
-
         if (is_array($json)) {
             $message = json_encode($json, JSON_PRETTY_PRINT);
         }
