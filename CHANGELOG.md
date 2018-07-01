@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Nothing.
 
+## [0.1.2] - 2018-07-01
+
+- This release is a padded release to make sure the versions across all `umber/*` projects are in sync.
+This release contains no file changes except the `CHANGELOG` entry.
+
 ## [0.1.1] - 2018-07-01
 
 ### Added
