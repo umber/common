@@ -1,0 +1,8 @@
+#
+# Umber Common Serializer.
+
+services:
+
+  umber.common.serializer:
+    class: 'Umber\Common\Serializer\Serializer'
+    public: false
