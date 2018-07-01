@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Nothing.
 
+## [0.1.1] - 2018-07-01
+
+### Added
+- Added `UmberCommonBundle` for anyone using `symfony` and wanting services registered for you.
+- Added `FormValidationException` for cases when the `FormHandler` detects form errors.
+- Added `AbstractFormTypeTestCase` for setting up the custom `FormFactory` and testing forms against it.
+- Added a custom `FormFactoryBuilder` for building the below `FormFactory`.
+- Added a custom `FormFactory` that helps implement the below `FormDataAccessor`.
+- Added a custom `FormDataAccessor` allowing `php 7.0` type hints to be used.
+- Added `RequestFormHandler` (as below) for handling `symfony/form` instances using the `Request` or `RequestStack` provided by `symfony/http-foundation`.
+- Added `FormHandler` (its a helper) for handling `symfony/form` instances.
+
 ## [0.1.0] - 2018-06-08
 
 ### Added
