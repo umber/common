@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Common\Kernel;
+namespace Umber\Common\Framework\Symfony;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

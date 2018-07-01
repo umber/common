@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Umber\Common\Kernel;
+namespace Umber\Common\Framework;
 
 abstract class AbstractEnvironment
 {
