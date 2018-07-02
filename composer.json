@@ -11,9 +11,13 @@
   "require": {
     "php": ">=7.1",
 
-    "lcobucci/jwt": "~3.2",
     "pagerfanta/pagerfanta": "~2.0",
     "jms/serializer": "~1.11"
+  },
+
+  "require-dev": {
+    "symfony/form": "~3.4 | ~4.0",
+    "symfony/http-foundation": "~3.4 | ~4.0"
   },
 
   "autoload": {
