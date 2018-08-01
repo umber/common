@@ -5,4 +5,6 @@ services:
 
   umber.common.serializer:
     class: 'Umber\Common\Serializer\Serializer'
+    arguments:
+      - '@?jms_serializer.serializer'
     public: false
