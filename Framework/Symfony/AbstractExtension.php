@@ -44,7 +44,7 @@ abstract class AbstractExtension extends Extension
     final protected function loadAllConfigFiles(ContainerBuilder $container): void
     {
         $directory = dirname((new ReflectionObject($this))->getFileName());
-        $directory = realpath(sprintf('%s/../Resources/config', $directory));
+        $directory = realpath(sprintf('%s/../Resources/config/services', $directory));
 
         $loader = new YamlFileLoader($container, new FileLocator($directory));
 
