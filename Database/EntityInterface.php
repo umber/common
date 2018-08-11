@@ -9,4 +9,8 @@ namespace Umber\Common\Database;
  */
 interface EntityInterface
 {
+    /**
+     * A factory method for creating instances of an entity.
+     */
+    public static function create(): EntityInterface;
 }
