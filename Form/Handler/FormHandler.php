@@ -44,9 +44,9 @@ final class FormHandler implements FormHandlerInterface
      */
     private function create(string $type, $data = null, array $options = []): FormInterface
     {
-        //  A form name must remain empty as with Symfony the form name is the root element with data.
-        //  In the case where data is coming from a request (or API) we want to form to apply to the root.
-        //  See Symfony Form code as it has a little check for this use case.
+        // A form name must remain empty as with Symfony the form name is the root element with data.
+        // In the case where data is coming from a request (or API) we want to form to apply to the root.
+        // See Symfony Form code as it has a little check for this use case.
         $name = '';
 
         $builder = $this->factory->createNamedBuilder($name, $type, $data, $options);

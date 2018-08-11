@@ -80,7 +80,7 @@ abstract class AbstractEntityFactory implements EntityFactoryInterface
             return;
         }
 
-        //  The current date, provided by factory for mocking.
+        // The current date, provided by factory for mocking.
         $now = $this->dateTimeFactory->create();
 
         if ($entity instanceof CreatedAtAwareInterface) {

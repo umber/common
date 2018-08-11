@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
+use Exception;
 use ReflectionObject;
 
 /**
@@ -28,7 +29,7 @@ abstract class AbstractExtension extends Extension
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception When a loader has an error.
+     * @throws Exception When a loader has an error.
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -38,7 +39,7 @@ abstract class AbstractExtension extends Extension
     /**
      * Handle the loading of bundle configuration service files.
      *
-     * @throws \Exception When a loader has an error.
+     * @throws Exception When a loader has an error.
      */
     final protected function loadAllConfigFiles(ContainerBuilder $container): void
     {

@@ -6,6 +6,7 @@ namespace Umber\Common\Database\Pagination;
 
 use Doctrine\ORM\QueryBuilder;
 
+use Exception;
 use Pagerfanta\Adapter\AdapterInterface;
 
 interface PaginatorFactoryInterface
@@ -13,7 +14,7 @@ interface PaginatorFactoryInterface
     /**
      * Create a paginator for the given adapter.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(AdapterInterface $adapter, ?int $page = null, ?int $limit = null): PaginatorInterface;
 

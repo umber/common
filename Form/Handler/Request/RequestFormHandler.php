@@ -32,7 +32,7 @@ final class RequestFormHandler implements RequestFormHandlerInterface
     {
         $payload = JsonHttpHelper::request($request);
 
-        //  PATCH requests would indicate that missing values are to be ignored or null.
+        // PATCH requests would indicate that missing values are to be ignored or null.
         $missing = ($request->getMethod() !== Request::METHOD_PATCH);
         $form = $this->formHandler->handle($type, $payload, $data, $options, $missing);
 

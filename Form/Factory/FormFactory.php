@@ -19,7 +19,7 @@ final class FormFactory extends SymfonyFormFactory
      * @var string[]|bool[]
      */
     private $defaults = [
-        'error_bubbling' => false, //  Error bubbling is disabled so each form has its own error.
+        'error_bubbling' => false, // Error bubbling is disabled so each form has its own error.
     ];
 
     /**

@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
+use Exception;
+
 /**
  * An abstract kernel that setups up symfony just right.
  */
@@ -44,7 +46,7 @@ abstract class AbstractKernel extends SymfonyKernel
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
@@ -64,7 +66,7 @@ abstract class AbstractKernel extends SymfonyKernel
              *
              * @param string $root
              *
-             * @throws \Exception due to loader failing.
+             * @throws Exception due to loader failing.
              */
             $services = function (string $root) use ($loader): void {
                 $loader->load(sprintf('%s/{parameters}.%s', $root, self::EXTENSIONS), 'glob');
@@ -83,7 +85,7 @@ abstract class AbstractKernel extends SymfonyKernel
     /**
      * @internal
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function routes(LoaderInterface $loader): RouteCollection
     {
@@ -95,7 +97,7 @@ abstract class AbstractKernel extends SymfonyKernel
          *
          * @param string $root
          *
-         * @throws \Exception due to loader failing.
+         * @throws Exception due to loader failing.
          */
         $routes = function (string $root) use ($collection): void {
             $collection->import(sprintf('%s/{routes}/*.%s', $root, self::EXTENSIONS), '/', 'glob');
