@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Umber\Common\Database\Factory;
+namespace Umber\Common\Database;
 
-use Umber\Common\Database\EntityInterface;
+use Umber\Common\Domain\DomainModelInterface;
+use Umber\Common\Exception\Exception\EntityHasNoDomainModelException;
 
 /**
  * A abstract implementation that can optionally used for entity interfaces.
@@ -30,5 +31,13 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function __construct()
     {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDomainModel(): DomainModelInterface
+    {
+        throw EntityHasNoDomainModelException::create($this);
     }
 }
