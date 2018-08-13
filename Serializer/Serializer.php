@@ -28,6 +28,7 @@ final class Serializer implements SerializerInterface
         }
 
         $context = new SerializationContext();
+        $context->enableMaxDepthChecks();
         $context->setGroups($groups);
 
         return $this->getSerializerInstance()->toArray($data, $context);

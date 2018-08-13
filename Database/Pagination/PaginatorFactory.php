@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 use Doctrine\ORM\QueryBuilder;
 
+use Exception;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class PaginatorFactory implements PaginatorFactoryInterface
@@ -28,7 +29,7 @@ class PaginatorFactory implements PaginatorFactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(AdapterInterface $adapter, ?int $page = null, ?int $limit = null): PaginatorInterface
     {
@@ -36,12 +37,12 @@ class PaginatorFactory implements PaginatorFactoryInterface
 
         $pageRequested = $request->query->get('page', 0);
         if (!is_numeric($pageRequested)) {
-            throw new \Exception('invalid pagination page');
+            throw new Exception('invalid pagination page');
         }
 
         $limitRequested = $request->query->get('limit', 0);
         if (!is_numeric($limitRequested)) {
-            throw new \Exception('invalid pagination limit');
+            throw new Exception('invalid pagination limit');
         }
 
         $paginator = new Paginator($adapter);
@@ -54,7 +55,7 @@ class PaginatorFactory implements PaginatorFactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function createForQueryBuilder(QueryBuilder $qb, ?int $page = null, ?int $limit = null): PaginatorInterface
     {
@@ -66,7 +67,7 @@ class PaginatorFactory implements PaginatorFactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function recreateForQueryBuilder(PaginatorInterface $paginator, QueryBuilder $qb): PaginatorInterface
     {

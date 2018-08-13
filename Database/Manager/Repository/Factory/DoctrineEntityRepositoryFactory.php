@@ -11,6 +11,8 @@ use Umber\Common\Database\Pagination\PaginatorFactoryInterface;
 
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+use Exception;
+
 /**
  * {@inheritdoc}
  */
@@ -28,7 +30,7 @@ final class DoctrineEntityRepositoryFactory implements EntityRepositoryFactoryIn
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(string $entity): EntityRepositoryInterface
     {
@@ -38,7 +40,7 @@ final class DoctrineEntityRepositoryFactory implements EntityRepositoryFactoryIn
         $class = $em->getClassMetadata($entity)->customRepositoryClassName;
 
         if ($class === null) {
-            throw new \Exception('must define repository class');
+            throw new Exception('must define repository class');
         }
 
         $repository = new $class(
@@ -48,7 +50,7 @@ final class DoctrineEntityRepositoryFactory implements EntityRepositoryFactoryIn
         );
 
         if (!$repository instanceof EntityRepositoryInterface) {
-            throw new \Exception('missing entity repository interface');
+            throw new Exception('missing entity repository interface');
         }
 
         return $repository;

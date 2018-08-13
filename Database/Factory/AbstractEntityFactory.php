@@ -41,10 +41,11 @@ abstract class AbstractEntityFactory implements EntityFactoryInterface
      */
     final protected function construct(bool $prepare): EntityInterface
     {
+        /** @var EntityInterface $class */
         $class = $this->getEntityClass();
 
         /** @var EntityInterface $entity */
-        $entity = new $class();
+        $entity = $class::create();
 
         if ($prepare) {
             $this->prepare($entity);
@@ -80,7 +81,7 @@ abstract class AbstractEntityFactory implements EntityFactoryInterface
             return;
         }
 
-        //  The current date, provided by factory for mocking.
+        // The current date, provided by factory for mocking.
         $now = $this->dateTimeFactory->create();
 
         if ($entity instanceof CreatedAtAwareInterface) {

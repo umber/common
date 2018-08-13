@@ -17,11 +17,11 @@ final class UmberCommonExtension extends AbstractExtension
     protected function configs(): array
     {
         return [
-            'services/database',
-            'services/factory',
-            'services/form',
-            'services/http',
-            'services/serializer',
+            'database',
+            'factory',
+            'form',
+            'http',
+            'serializer',
         ];
     }
 }
