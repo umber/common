@@ -1,0 +1,21 @@
+#
+# Umber Common Form.
+
+services:
+
+  umber.common.form.factory:
+    class: 'Umber\Common\Form\Factory\FormFactory'
+    arguments:
+      - '@form.registry'
+    public: false
+
+  umber.common.form.handler:
+    class: 'Umber\Common\Form\Handler\FormHandler'
+    arguments:
+      - '@umber.common.form.factory'
+
+  umber.common.form.handler.request:
+    class: 'Umber\Common\Form\Handler\Request\RequestFormHandler'
+    arguments:
+      - '@umber.common.form.handler'
+      - '@request_stack'
