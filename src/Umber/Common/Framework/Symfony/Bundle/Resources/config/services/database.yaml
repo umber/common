@@ -1,0 +1,31 @@
+#
+# Umber Common Database.
+
+parameters:
+  umber.database.paginator.page.default: 1
+  umber.database.paginator.limit.default: 25
+
+services:
+
+  umber.database.paginator.factory:
+    class: 'Umber\Common\Database\Pagination\PaginatorFactory'
+    arguments:
+      - '@request_stack'
+      - '%umber.database.paginator.page.default%'
+      - '%umber.database.paginator.limit.default%'
+    public: false
+
+  umber.database.manager.doctrine:
+    class: 'Umber\Common\Database\Manager\DoctrineDatabaseManager'
+    arguments:
+      - '@doctrine'
+      - '@umber.database.manager.doctrine.repository.factory'
+    public: false
+
+  umber.database.manager.doctrine.repository.factory:
+    class: 'Umber\Common\Database\Manager\Repository\Factory\DoctrineEntityRepositoryFactory'
+    arguments:
+      - '@doctrine'
+      - '@umber.database.paginator.factory'
+      - '@umber.authentication.storage'
+    public: false
