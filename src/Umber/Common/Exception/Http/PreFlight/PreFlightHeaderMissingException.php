@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Exception\Http\PreFlight;
 
-use Umber\Exception\Message\AbstractMessageRuntimeException;
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 
 /**
  * An exception thrown when a pre-flight header is missing.
