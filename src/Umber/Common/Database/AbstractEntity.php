@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Umber\Common\Database;
 
 use Umber\Common\Domain\DomainModelInterface;
-use Umber\Common\Exception\Exception\EntityHasNoDomainModelException;
+use Umber\Common\Exception\Database\EntityHasNoDomainModelException;
 
 /**
  * A abstract implementation that can optionally used for entity interfaces.

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Umber\Common\Tests\Unit\Exception;
 
-use Umber\Exception\Message\ExceptionMessage;
+use Umber\Common\Exception\ExceptionMessage;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * {@inheritdoc}
  *
- * @covers \Umber\Exception\Message\ExceptionMessage
+ * @covers \Umber\Common\Exception\ExceptionMessage
  */
 class ExceptionMessageHelperTest extends TestCase
 {

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Umber\Common\Exception\Exception;
+namespace Umber\Common\Exception\Database;
 
 use Umber\Common\Database\EntityInterface;
-
-use Umber\Exception\Message\AbstractMessageRuntimeException;
+use Umber\Common\Exception\AbstractMessageRuntimeException;
 
 /**
  * {@inheritdoc}
