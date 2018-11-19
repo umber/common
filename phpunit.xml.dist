@@ -12,8 +12,8 @@
   </php>
 
   <testsuites>
-    <testsuite name="Umber Common Test Suite">
-      <directory>./Tests/</directory>
+    <testsuite name="Suite">
+      <directory>./tests/</directory>
     </testsuite>
   </testsuites>
 
@@ -21,7 +21,7 @@
     <whitelist>
       <directory>./</directory>
       <exclude>
-        <directory>./Tests</directory>
+        <directory>./tests</directory>
         <directory>./vendor</directory>
       </exclude>
     </whitelist>
