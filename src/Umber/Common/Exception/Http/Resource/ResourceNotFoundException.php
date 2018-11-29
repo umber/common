@@ -49,7 +49,7 @@ final class ResourceNotFoundException extends AbstractMessageRuntimeException im
     public static function message(): array
     {
         return [
-            'The resource ("{{id}}") does not exist.',
+            'The resource "{{id}}" does not exist.',
         ];
     }
 }

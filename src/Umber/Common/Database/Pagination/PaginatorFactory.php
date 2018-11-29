@@ -45,9 +45,12 @@ class PaginatorFactory implements PaginatorFactoryInterface
             throw new Exception('invalid pagination limit');
         }
 
+        $page = (int) $pageRequested ?: $page ?: $this->page;
+        $limit = (int) $limitRequested ?: $limit ?: $this->limit;
+
         $paginator = new Paginator($adapter);
-        $paginator->setCurrentPage($pageRequested ?: $page ?: $this->page);
-        $paginator->setMaxPerPage($limitRequested ?: $limit ?: $this->limit);
+        $paginator->setCurrentPage($page);
+        $paginator->setMaxPerPage($limit);
 
         return $paginator;
     }
@@ -59,7 +62,7 @@ class PaginatorFactory implements PaginatorFactoryInterface
      */
     public function createForQueryBuilder(QueryBuilder $qb, ?int $page = null, ?int $limit = null): PaginatorInterface
     {
-        $adapter = new QueryBuilderPaginatorAdapter($qb);
+        $adapter = new QueryBuilderPaginatorAdapter($qb, true, null);
 
         return $this->create($adapter, $page, $limit);
     }
@@ -71,7 +74,7 @@ class PaginatorFactory implements PaginatorFactoryInterface
      */
     public function recreateForQueryBuilder(PaginatorInterface $paginator, QueryBuilder $qb): PaginatorInterface
     {
-        $adapter = new QueryBuilderPaginatorAdapter($qb);
+        $adapter = new QueryBuilderPaginatorAdapter($qb, true, null);
 
         return $this->create(
             $adapter,

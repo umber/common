@@ -12,7 +12,7 @@ class QueryBuilderPaginatorAdapter extends DoctrineORMAdapter
 {
     private $builder;
 
-    public function __construct(QueryBuilder $builder, bool $fetchJoinCollection = true, ?bool $useOutputWalkers = null)
+    public function __construct(QueryBuilder $builder, bool $fetchJoinCollection, ?bool $useOutputWalkers)
     {
         parent::__construct($builder, $fetchJoinCollection, $useOutputWalkers);
 

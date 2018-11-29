@@ -22,6 +22,7 @@ final class UmberCommonExtension extends AbstractExtension
             'factory',
             'form',
             'http',
+            'reducer',
             'serializer',
         ];
     }

@@ -7,7 +7,7 @@ services:
     class: 'Umber\Common\Http\HttpResponseGenerator'
     arguments:
       - '@umber.common.http.response.factory'
-      - '@umber.common.serializer'
+      - '@umber.common.serializer.reducer'
       - 'json'
     public: false
 

@@ -12,8 +12,7 @@
     "php": ">=7.1",
     "ext-json": "*",
 
-    "pagerfanta/pagerfanta": "~2.0",
-    "jms/serializer": "~1.11"
+    "pagerfanta/pagerfanta": "~2.0"
   },
 
   "require-dev": {

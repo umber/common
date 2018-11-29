@@ -8,3 +8,8 @@ services:
     arguments:
       - '@?jms_serializer.serializer'
     public: false
+
+  umber.common.serializer.reducer:
+    class: 'Umber\Common\Serializer\ReducerSerializer'
+    arguments:
+      - '@umber.common.reducer.builder'

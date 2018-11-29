@@ -1,0 +1,30 @@
+#
+# Umber Reducer.
+
+services:
+
+  umber.common.reducer.registry:
+    class: 'Umber\Common\Reducer\Registry\ReducerHandlerRegistry'
+
+  umber.common.reducer.type.resolver:
+    class: 'Umber\Common\Reducer\Type\Resolver\TypeResolver'
+
+  umber.common.reducer:
+    class: 'Umber\Common\Reducer\Reducer'
+    arguments:
+      - '@umber.common.reducer.type.resolver'
+
+  umber.common.reducer.factory:
+    class: 'Umber\Common\Reducer\Factory\ReducerFactory'
+    arguments:
+      - '@umber.common.reducer.type.resolver'
+      - '@umber.common.reducer.registry'
+
+  umber.common.reducer.builder:
+    class: 'Umber\Common\Reducer\Builder\ReducerBuilderFactory'
+    arguments:
+      - '@umber.common.reducer.factory'
+      - '@umber.common.reducer.factory.context'
+
+  umber.common.reducer.factory.context:
+    class: 'Umber\Common\Reducer\Factory\ReducerContextFactory'
