@@ -7,7 +7,7 @@ namespace Umber\Common\Database\Factory;
 use Umber\Common\Database\EntityFactoryInterface;
 use Umber\Common\Database\EntityInterface;
 use Umber\Common\Factory\Date\DateTimeFactoryInterface;
-use Umber\Common\Prototype\Column\Date\CreatedAtAwareInterface;
+use Umber\Common\m\Column\Date\CreatedAtAwareInterface;
 use Umber\Common\Prototype\Column\Date\DeletedAtAwareInterface;
 use Umber\Common\Prototype\Column\Date\UpdatedAtAwareInterface;
 use Umber\Common\Prototype\Hint\DateAwareHintInterface;
@@ -41,11 +41,8 @@ abstract class AbstractEntityFactory implements EntityFactoryInterface
      */
     final protected function construct(bool $prepare): EntityInterface
     {
-        /** @var EntityInterface $class */
         $class = $this->getEntityClass();
-
-        /** @var EntityInterface $entity */
-        $entity = $class::create();
+        $entity = $this->constructEntityClass($class);
 
         if ($prepare) {
             $this->prepare($entity);
@@ -73,11 +70,25 @@ abstract class AbstractEntityFactory implements EntityFactoryInterface
     }
 
     /**
+     * Construct the entity class provided.
+     *
+     * This method should be overridden should the constructor to the entity contain
+     * required parameters. By default this code will assume no parameters.
+     */
+    protected function constructEntityClass(string $class): EntityInterface
+    {
+        /** @var EntityInterface $entity */
+        $entity = new $class();
+
+        return $entity;
+    }
+
+    /**
      * Prepare a newly constructed entity that has a date aware hinting.
      */
     protected function prepareDateAwareHint(EntityInterface $entity): void
     {
-        if (!$entity instanceof DateAwareHintInterface) {
+        if (!($entity instanceof DateAwareHintInterface)) {
             return;
         }
 
