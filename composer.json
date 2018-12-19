@@ -12,11 +12,11 @@
     "php": ">=7.1",
     "ext-json": "*",
 
-    "umber/database": "^0.3",
+    "umber/database": "^1.0",
     "umber/date": "^1.0",
-    "umber/http": "^0.3",
-    "umber/prototype": "^0.3",
-    "umber/reducer": "^0.3"
+    "umber/http": "^1.0",
+    "umber/prototype": "^1.0",
+    "umber/reducer": "^1.0"
   },
 
   "require-dev": {
@@ -35,7 +35,7 @@
 
   "extra": {
     "branch-alias": {
-      "dev-develop": "0.1-dev"
+      "dev-develop": "1.0-dev"
     }
   },
 
