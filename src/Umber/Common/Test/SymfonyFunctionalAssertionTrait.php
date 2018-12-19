@@ -7,6 +7,7 @@ namespace Umber\Common\Test;
 use Umber\Common\Database\Pagination\PaginatorInterface;
 
 use Symfony\Component\HttpFoundation\Response;
+use Umber\Common\Http\Enum\HttpHeaderEnum;
 
 /**
  * A trait that adds a series of helper assertions for functional testing.
@@ -52,12 +53,12 @@ trait SymfonyFunctionalAssertionTrait
     {
         $headers = $response->headers;
 
-        self::assertTrue($headers->has(PaginatorInterface::PAGINATION_RESULTS_TOTAL));
-        self::assertTrue($headers->has(PaginatorInterface::PAGINATION_RESULTS_COUNT));
-        self::assertTrue($headers->has(PaginatorInterface::PAGINATION_RESULTS_PER_PAGE));
-        self::assertTrue($headers->has(PaginatorInterface::PAGINATION_PAGES_TOTAL));
+        self::assertTrue($headers->has(HttpHeaderEnum::PAGINATION_RESULTS_TOTAL));
+        self::assertTrue($headers->has(HttpHeaderEnum::PAGINATION_RESULTS_COUNT));
+        self::assertTrue($headers->has(HttpHeaderEnum::PAGINATION_RESULTS_PER_PAGE));
+        self::assertTrue($headers->has(HttpHeaderEnum::PAGINATION_PAGES_TOTAL));
 
-        $results = (int) $headers->get(PaginatorInterface::PAGINATION_RESULTS_TOTAL, 0);
+        $results = (int) $headers->get(HttpHeaderEnum::PAGINATION_RESULTS_TOTAL, 0);
 
         self::assertEquals($total, $results, 'Collection results total header incorrect');
         self::assertCount($total, json_decode($response->getContent(), true), 'Collection results total payload incorrect');
@@ -70,10 +71,10 @@ trait SymfonyFunctionalAssertionTrait
     {
         $headers = $response->headers;
 
-        self::assertFalse($headers->has(PaginatorInterface::PAGINATION_RESULTS_TOTAL));
-        self::assertFalse($headers->has(PaginatorInterface::PAGINATION_RESULTS_COUNT));
-        self::assertFalse($headers->has(PaginatorInterface::PAGINATION_RESULTS_PER_PAGE));
-        self::assertFalse($headers->has(PaginatorInterface::PAGINATION_PAGES_TOTAL));
+        self::assertFalse($headers->has(HttpHeaderEnum::PAGINATION_RESULTS_TOTAL));
+        self::assertFalse($headers->has(HttpHeaderEnum::PAGINATION_RESULTS_COUNT));
+        self::assertFalse($headers->has(HttpHeaderEnum::PAGINATION_RESULTS_PER_PAGE));
+        self::assertFalse($headers->has(HttpHeaderEnum::PAGINATION_PAGES_TOTAL));
     }
 
     /**
