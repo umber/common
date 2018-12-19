@@ -6,20 +6,13 @@ namespace Umber\Common\Prototype\Column\Date;
 
 use Umber\Common\Prototype\Hint\DateAwareHintInterface;
 
-use DateTimeInterface;
+use Umber\Prototype\Column\Date\CreatedAtAwareInterface as PrototypeCreatedAtAwareInterface;
 
 /**
- * Object should be aware of the date it was created at.
+ * @deprecated Please use "Umber\Prototype\Column\Date\CreatedAtAwareInterface" instead.
  */
-interface CreatedAtAwareInterface extends DateAwareHintInterface
+interface CreatedAtAwareInterface extends
+    PrototypeCreatedAtAwareInterface,
+    DateAwareHintInterface
 {
-    /**
-     * Return the date created at.
-     */
-    public function getCreatedAt(): DateTimeInterface;
-
-    /**
-     * Set the date created at.
-     */
-    public function setCreatedAt(DateTimeInterface $created): void;
 }

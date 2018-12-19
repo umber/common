@@ -4,33 +4,12 @@ declare(strict_types=1);
 
 namespace Umber\Common\Prototype\Column;
 
+use Umber\Prototype\Column\IdentityAwareTrait as PrototypeIdentityAwareTrait;
+
 /**
- * Object becomes aware of identity.
- *
- * @mixin IdentityAwareInterface
+ * @deprecated Please use "Umber\Prototype\Column\IdentityAwareTrait" instead.
  */
 trait IdentityAwareTrait
 {
-    /** @var int */
-    protected $id;
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see IdentityAwareInterface::getId()
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see IdentityAwareInterface::hasId()
-     */
-    public function hasId(): bool
-    {
-        return $this->id !== null;
-    }
+    use PrototypeIdentityAwareTrait;
 }

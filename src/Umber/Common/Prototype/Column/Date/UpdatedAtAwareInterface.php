@@ -6,20 +6,13 @@ namespace Umber\Common\Prototype\Column\Date;
 
 use Umber\Common\Prototype\Hint\DateAwareHintInterface;
 
-use DateTimeInterface;
+use Umber\Prototype\Column\Date\UpdatedAtAwareInterface as PrototypeUpdatedAtAwareInterface;
 
 /**
- * Object should be aware of the date it was updated at.
+ * @deprecated Please use "Umber\Prototype\Column\Date\UpdatedAtAwareInterface" instead.
  */
-interface UpdatedAtAwareInterface extends DateAwareHintInterface
+interface UpdatedAtAwareInterface extends
+    PrototypeUpdatedAtAwareInterface,
+    DateAwareHintInterface
 {
-    /**
-     * Return the date updated at.
-     */
-    public function getUpdatedAt(): DateTimeInterface;
-
-    /**
-     * Set the date updated at.
-     */
-    public function setUpdatedAt(DateTimeInterface $updated): void;
 }

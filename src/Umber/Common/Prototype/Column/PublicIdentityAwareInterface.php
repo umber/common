@@ -4,20 +4,11 @@ declare(strict_types=1);
 
 namespace Umber\Common\Prototype\Column;
 
-interface PublicIdentityAwareInterface
+use Umber\Prototype\Column\PublicIdentityAwareInterface as PrototypePublicIdentityAwareInterface;
+
+/**
+ * @deprecated Please use "Umber\Prototype\Column\PublicIdentityAwareInterface" instead.
+ */
+interface PublicIdentityAwareInterface extends PrototypePublicIdentityAwareInterface
 {
-    /**
-     * Return the public identity.
-     */
-    public function getPublicId(): string;
-
-    /**
-     * Check the public identity is set.
-     */
-    public function hasPublicId(): bool;
-
-    /**
-     * Set the public identity.
-     */
-    public function setPublicId(string $id): void;
 }
