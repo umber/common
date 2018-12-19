@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Umber\Common\Reducer\Type\Handler;
 
 use Umber\Common\Database\EntityInterface;
-use Umber\Common\Prototype\Column\PublicIdentityAwareInterface;
 use Umber\Common\Reducer\Context\ReducerContextInterface;
 use Umber\Common\Reducer\Handler\ReducerHandlerContext;
 use Umber\Common\Reducer\Registry\ReducerHandlerRegistry;
 use Umber\Common\Reducer\Type\Resolved\ObjectResolvedType;
 use Umber\Common\Reducer\Type\ResolvedTypeInterface;
 use Umber\Common\Reducer\Type\TypeHandlerInterface;
+
+use Umber\Prototype\Column\PublicIdentityAwareInterface;
 
 use Traversable;
 

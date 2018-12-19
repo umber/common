@@ -6,11 +6,12 @@ namespace Umber\Common\Database\Factory;
 
 use Umber\Common\Database\EntityFactoryInterface;
 use Umber\Common\Database\EntityInterface;
-use Umber\Common\Factory\Date\DateTimeFactoryInterface;
-use Umber\Common\Prototype\Column\Date\CreatedAtAwareInterface;
-use Umber\Common\Prototype\Column\Date\DeletedAtAwareInterface;
-use Umber\Common\Prototype\Column\Date\UpdatedAtAwareInterface;
-use Umber\Common\Prototype\Hint\DateAwareHintInterface;
+
+use Umber\Date\Factory\DateTimeFactoryInterface;
+use Umber\Prototype\Column\Date\CreatedAtAwareInterface;
+use Umber\Prototype\Column\Date\DeletedAtAwareInterface;
+use Umber\Prototype\Column\Date\UpdatedAtAwareInterface;
+use Umber\Prototype\Hint\DateAwareHintInterface;
 
 /**
  * An abstraction for the entity factory interface.
