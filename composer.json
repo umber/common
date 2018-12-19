@@ -13,7 +13,7 @@
     "ext-json": "*",
 
     "umber/database": "^0.3",
-    "umber/date": "^0.3",
+    "umber/date": "^1.0",
     "umber/http": "^0.3",
     "umber/prototype": "^0.3",
     "umber/reducer": "^0.3"
