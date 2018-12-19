@@ -7,7 +7,7 @@ namespace Umber\Common\Database\Factory;
 use Umber\Common\Database\EntityFactoryInterface;
 use Umber\Common\Database\EntityInterface;
 use Umber\Common\Factory\Date\DateTimeFactoryInterface;
-use Umber\Common\m\Column\Date\CreatedAtAwareInterface;
+use Umber\Common\Prototype\Column\Date\CreatedAtAwareInterface;
 use Umber\Common\Prototype\Column\Date\DeletedAtAwareInterface;
 use Umber\Common\Prototype\Column\Date\UpdatedAtAwareInterface;
 use Umber\Common\Prototype\Hint\DateAwareHintInterface;
