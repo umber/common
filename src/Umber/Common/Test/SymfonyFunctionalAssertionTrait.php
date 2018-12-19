@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Umber\Common\Test;
 
-use Umber\Common\Database\Pagination\PaginatorInterface;
+use Umber\Common\Http\Enum\HttpHeaderEnum;
 
 use Symfony\Component\HttpFoundation\Response;
-use Umber\Common\Http\Enum\HttpHeaderEnum;
 
 /**
  * A trait that adds a series of helper assertions for functional testing.
