@@ -4,5 +4,5 @@
 services:
 
   umber.common.factory.date:
-    class: 'Umber\Common\Factory\Date\ImmutableDateTimeFactory'
+    class: 'Umber\Date\Factory\ImmutableDateTimeFactory'
     public: false

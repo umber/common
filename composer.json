@@ -12,6 +12,7 @@
     "php": ">=7.1",
     "ext-json": "*",
 
+    "umber/date": "^0.3",
     "umber/prototype": "^0.3",
 
     "pagerfanta/pagerfanta": "~2.0"
