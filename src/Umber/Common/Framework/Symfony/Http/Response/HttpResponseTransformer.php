@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Umber\Common\Framework\Symfony\Http\Response;
 
-use Umber\Common\Http\Enum\HttpHeaderEnum;
-use Umber\Common\Http\Enum\HttpMethodEnum;
-use Umber\Common\Http\Header\Configuration\AccessControlConfiguration;
-use Umber\Common\Http\Header\Generator\AdditionalResponseHeaderGenerator;
-use Umber\Common\Http\HttpResponse;
+use Umber\Http\Enum\HttpHeaderEnum;
+use Umber\Http\Enum\HttpMethodEnum;
+use Umber\Http\Header\Configuration\AccessControlConfiguration;
+use Umber\Http\Header\Generator\AdditionalResponseHeaderGenerator;
+use Umber\Http\HttpResponse;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -3,7 +3,7 @@ services:
   umber.common.event_listener.http_response_transformer:
     class: 'Umber\Common\Framework\Symfony\Bundle\EventListener\HttpResponseTransformerEventListener'
     arguments:
-      - '@umber.common.http.response.transformer'
+      - '@umber.http.response.transformer'
     tags:
       - { name: kernel.event_listener, event: kernel.view }
     public: false

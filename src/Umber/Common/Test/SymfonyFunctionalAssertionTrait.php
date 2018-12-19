@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Test;
 
-use Umber\Common\Http\Enum\HttpHeaderEnum;
+use Umber\Http\Enum\HttpHeaderEnum;
 
 use Symfony\Component\HttpFoundation\Response;
 

@@ -12,4 +12,4 @@ services:
   umber.common.serializer.reducer:
     class: 'Umber\Common\Serializer\ReducerSerializer'
     arguments:
-      - '@umber.common.reducer.builder'
+      - '@umber.reducer.builder'

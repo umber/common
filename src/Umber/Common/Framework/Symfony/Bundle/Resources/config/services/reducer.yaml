@@ -3,28 +3,28 @@
 
 services:
 
-  umber.common.reducer.registry:
-    class: 'Umber\Common\Reducer\Registry\ReducerHandlerRegistry'
+  umber.reducer.registry:
+    class: 'Umber\Reducer\Registry\ReducerHandlerRegistry'
 
-  umber.common.reducer.type.resolver:
-    class: 'Umber\Common\Reducer\Type\Resolver\TypeResolver'
+  umber.reducer.type.resolver:
+    class: 'Umber\Reducer\Type\Resolver\TypeResolver'
 
-  umber.common.reducer:
-    class: 'Umber\Common\Reducer\Reducer'
+  umber.reducer:
+    class: 'Umber\Reducer\Reducer'
     arguments:
-      - '@umber.common.reducer.type.resolver'
+      - '@umber.reducer.type.resolver'
 
-  umber.common.reducer.factory:
-    class: 'Umber\Common\Reducer\Factory\ReducerFactory'
+  umber.reducer.factory:
+    class: 'Umber\Reducer\Factory\ReducerFactory'
     arguments:
-      - '@umber.common.reducer.type.resolver'
-      - '@umber.common.reducer.registry'
+      - '@umber.reducer.type.resolver'
+      - '@umber.reducer.registry'
 
-  umber.common.reducer.builder:
-    class: 'Umber\Common\Reducer\Builder\ReducerBuilderFactory'
+  umber.reducer.builder:
+    class: 'Umber\Reducer\Builder\ReducerBuilderFactory'
     arguments:
-      - '@umber.common.reducer.factory'
-      - '@umber.common.reducer.factory.context'
+      - '@umber.reducer.factory'
+      - '@umber.reducer.factory.context'
 
-  umber.common.reducer.factory.context:
-    class: 'Umber\Common\Reducer\Factory\ReducerContextFactory'
+  umber.reducer.factory.context:
+    class: 'Umber\Reducer\Factory\ReducerContextFactory'

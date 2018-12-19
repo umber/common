@@ -12,10 +12,11 @@
     "php": ">=7.1",
     "ext-json": "*",
 
+    "umber/database": "^0.3",
     "umber/date": "^0.3",
+    "umber/http": "^0.3",
     "umber/prototype": "^0.3",
-
-    "pagerfanta/pagerfanta": "~2.0"
+    "umber/reducer": "^0.3"
   },
 
   "require-dev": {

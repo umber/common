@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Serializer;
 
-use Umber\Common\Reducer\Builder\ReducerBuilderFactory;
+use Umber\Reducer\Builder\ReducerBuilderFactory;
 
 /**
  * A serializer using the reducer.

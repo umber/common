@@ -18,7 +18,7 @@ final class ObjectReducerHandlerCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $registry = $container->getDefinition('umber.common.reducer.registry');
+        $registry = $container->getDefinition('umber.reducer.registry');
 
         foreach ($container->findTaggedServiceIds('object.reducer') as $id => $data) {
             $registry->addMethodCall('register', [

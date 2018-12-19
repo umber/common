@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Umber\Common\Domain;
 
-use Umber\Common\Database\EntityInterface;
+use Umber\Database\EntityInterface;
 
 /**
  * A domain model that operates on database entities.

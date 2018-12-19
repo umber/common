@@ -1,26 +1,26 @@
 #
-# Umber Common HTTP.
+# Umber HTTP.
 
 services:
 
-  umber.common.http.generate:
-    class: 'Umber\Common\Http\HttpResponseGenerator'
+  umber.http.generate:
+    class: 'Umber\Http\HttpResponseGenerator'
     arguments:
-      - '@umber.common.http.response.factory'
+      - '@umber.http.response.factory'
       - '@umber.common.serializer.reducer'
       - 'json'
     public: false
 
-  umber.common.http.response.factory:
-    class: 'Umber\Common\Http\Factory\HttpResponseFactory'
+  umber.http.response.factory:
+    class: 'Umber\Http\Factory\HttpResponseFactory'
     public: false
 
-  umber.common.http.response.transformer:
+  umber.http.response.transformer:
     class: 'Umber\Common\Framework\Symfony\Http\Response\HttpResponseTransformer'
     arguments:
-      - '@umber.common.http.header.generator.additional_header'
+      - '@umber.http.header.generator.additional_header'
     public: false
 
-  umber.common.http.header.generator.additional_header:
-    class: 'Umber\Common\Http\Header\Generator\AdditionalResponseHeaderGenerator'
+  umber.http.header.generator.additional_header:
+    class: 'Umber\Http\Header\Generator\AdditionalResponseHeaderGenerator'
     public: false
