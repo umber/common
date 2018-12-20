@@ -14,7 +14,7 @@
 
     "umber/database": "^1.0",
     "umber/date": "^1.0",
-    "umber/http": "^1.0",
+    "umber/http": "^1.1",
     "umber/prototype": "^1.0",
     "umber/reducer": "^1.0"
   },
