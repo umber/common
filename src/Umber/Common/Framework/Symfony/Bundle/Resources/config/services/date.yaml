@@ -1,8 +1,7 @@
 #
-# Umber Common Factory.
+# Umber Date.
 
 services:
 
-  umber.common.factory.date:
+  umber.date.factory:
     class: 'Umber\Date\Factory\ImmutableDateTimeFactory'
-    public: false

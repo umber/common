@@ -13,14 +13,12 @@ services:
       - '@request_stack'
       - '%umber.database.paginator.page.default%'
       - '%umber.database.paginator.limit.default%'
-    public: false
 
   umber.database.manager.doctrine:
     class: 'Umber\Database\Manager\DoctrineDatabaseManager'
     arguments:
       - '@doctrine'
       - '@umber.database.manager.doctrine.repository.factory'
-    public: false
 
   umber.database.manager.doctrine.repository.factory:
     class: 'Umber\Database\Manager\Repository\Factory\DoctrineEntityRepositoryFactory'
@@ -28,4 +26,3 @@ services:
       - '@doctrine'
       - '@umber.database.paginator.factory'
       - '@umber.authentication.storage'
-    public: false

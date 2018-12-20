@@ -7,7 +7,6 @@ services:
     class: 'Umber\Common\Form\Factory\FormFactory'
     arguments:
       - '@form.registry'
-    public: false
 
   umber.common.form.handler:
     class: 'Umber\Common\Form\Handler\FormHandler'

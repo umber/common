@@ -3,30 +3,30 @@
 
 services:
 
-  umber.http.generate:
+  umber.http.response.generator:
     class: 'Umber\Http\HttpResponseGenerator'
+    arguments:
+      - '@umber.http.response.composer'
+      - 'json'
+
+  umber.http.response.composer:
+    class: 'Umber\Http\HttpResponseComposer'
     arguments:
       - '@umber.http.response.factory'
       - '@umber.http.serializer.reducer'
-      - 'json'
-    public: false
 
   umber.http.response.factory:
     class: 'Umber\Http\Factory\HttpResponseFactory'
-    public: false
 
   umber.http.response.transformer:
     class: 'Umber\Common\Framework\Symfony\Http\Response\HttpResponseTransformer'
     arguments:
       - '@umber.http.header.generator.additional_header'
-    public: false
 
   umber.http.header.generator.additional_header:
     class: 'Umber\Http\Header\Generator\AdditionalResponseHeaderGenerator'
-    public: false
 
   umber.http.serializer.reducer:
     class: 'Umber\Http\Serializer\Reducer\ReducerResponseSerializer'
     arguments:
       - '@umber.reducer.builder'
-    public: false

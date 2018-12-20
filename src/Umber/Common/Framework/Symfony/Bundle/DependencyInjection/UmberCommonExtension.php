@@ -18,8 +18,8 @@ final class UmberCommonExtension extends AbstractExtension
     {
         return [
             'database',
+            'date',
             'event-listeners',
-            'factory',
             'form',
             'http',
             'reducer',

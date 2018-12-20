@@ -6,4 +6,3 @@ services:
       - '@umber.http.response.transformer'
     tags:
       - { name: kernel.event_listener, event: kernel.view }
-    public: false
