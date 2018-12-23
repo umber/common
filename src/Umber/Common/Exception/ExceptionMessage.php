@@ -14,7 +14,10 @@ final class ExceptionMessage
      */
     public static function translate($message, array $parameters = []): string
     {
-        $message = is_array($message) ? implode(' ', $message) : (string) $message;
+        $message = is_array($message)
+            ? implode(' ', $message)
+            : $message;
+
         $translations = [];
 
         foreach ($parameters as $key => $value) {

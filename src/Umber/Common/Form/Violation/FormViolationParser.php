@@ -34,7 +34,7 @@ final class FormViolationParser
                 continue;
             }
 
-            $childErrors = self::parse($child, $name);
+            $childErrors = self::reduce($child, $name);
 
             foreach ($childErrors as $childErrorKey => $childError) {
                 if (isset($errors[$childErrorKey])) {

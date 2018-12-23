@@ -29,7 +29,7 @@ final class CollectionHelper
         }
 
         if ($traversable instanceof Traversable) {
-            return iterator_to_array($traversable);
+            return new ArrayCollection(iterator_to_array($traversable));
         }
 
         if (is_array($traversable)) {
