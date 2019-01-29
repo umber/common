@@ -10,6 +10,8 @@ use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
 
 use Symfony\Component\HttpFoundation\Response;
 
+use Throwable;
+
 /**
  * A resource not found exception.
  */
@@ -20,11 +22,13 @@ final class ResourceNotFoundException extends AbstractMessageRuntimeException im
     /**
      * @return ResourceNotFoundException
      */
-    public static function create(string $id): self
+    public static function create(string $id, ?Throwable $previous = null): self
     {
-        return new self([
+        $parameters = [
             'id' => $id,
-        ]);
+        ];
+
+        return new self($parameters, null, $previous);
     }
 
     /**
