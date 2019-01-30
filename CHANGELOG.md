@@ -12,7 +12,7 @@ The two exception hints have been moved to the `umber/http` package as they are 
 Because of this the namespace has changed, please update all references.
 
 * `Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface` is now `Umber\Http\Hint\HttpCanonicalAwareExceptionInterface`
-* `Umber\Http\Hint\HttpAwareExceptionInterface` is now `Umber\Http\Hint\HttpAwareExceptionInterface`
+* `Umber\Common\Exception\Hint\HttpAwareExceptionInterface` is now `Umber\Http\Hint\HttpAwareExceptionInterface`
 
 Note that `CanonicalAwareExceptionInterface` is now known as `HttpCanonicalAwareExceptionInterface` also.
 
