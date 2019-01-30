@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Umber\Common\Exception\Form;
 
 use Umber\Common\Exception\AbstractMessageRuntimeException;
-use Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface;
-use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
+
+use Umber\Http\Hint\HttpAwareExceptionInterface;
+use Umber\Http\Hint\HttpCanonicalAwareExceptionInterface;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ use Throwable;
  * A form validation failure exception.
  */
 final class FormValidationException extends AbstractMessageRuntimeException implements
-    CanonicalAwareExceptionInterface,
+    HttpCanonicalAwareExceptionInterface,
     HttpAwareExceptionInterface
 {
     private $form;
