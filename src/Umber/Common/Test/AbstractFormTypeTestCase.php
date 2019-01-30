@@ -30,7 +30,7 @@ abstract class AbstractFormTypeTestCase extends TestCase
     /** @var FormFactory */
     protected $factory;
 
-    /** @var FormBuilder|MockObject */
+    /** @var FormBuilder */
     protected $builder;
 
     /**
@@ -49,7 +49,10 @@ abstract class AbstractFormTypeTestCase extends TestCase
             ->addExtensions($extensions)
             ->getFormFactory();
 
-        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
+        /** @var MockObject|EventDispatcherInterface $dispatcher */
+        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $this->dispatcher = $dispatcher;
+
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
     }
 }

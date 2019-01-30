@@ -18,11 +18,3 @@ services:
     class: 'Umber\Database\Manager\DoctrineDatabaseManager'
     arguments:
       - '@doctrine'
-      - '@umber.database.manager.doctrine.repository.factory'
-
-  umber.database.manager.doctrine.repository.factory:
-    class: 'Umber\Database\Manager\Repository\Factory\DoctrineEntityRepositoryFactory'
-    arguments:
-      - '@doctrine'
-      - '@umber.database.paginator.factory'
-      - '@umber.authentication.storage'

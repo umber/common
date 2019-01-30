@@ -20,7 +20,7 @@ use Symfony\Component\Form\ResolvedFormTypeFactoryInterface;
  */
 final class FormFactoryBuilder implements FormFactoryBuilderInterface
 {
-    /** @var ResolvedFormTypeFactoryInterface */
+    /** @var ResolvedFormTypeFactoryInterface|null */
     private $resolvedTypeFactory;
 
     /** @var FormExtensionInterface[] */

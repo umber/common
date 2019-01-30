@@ -16,7 +16,7 @@ final class JsonHttpHelper
      */
     public static function request(Request $request): array
     {
-        return self::json($request->getContent());
+        return self::json((string) $request->getContent());
     }
 
     /**
