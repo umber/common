@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Umber\Common\Exception\Http\Resource;
 
 use Umber\Common\Exception\AbstractMessageRuntimeException;
-use Umber\Common\Exception\Hint\CanonicalAwareExceptionInterface;
-use Umber\Common\Exception\Hint\HttpAwareExceptionInterface;
+
+use Umber\Http\Hint\HttpAwareExceptionInterface;
+use Umber\Http\Hint\HttpCanonicalAwareExceptionInterface;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +17,7 @@ use Throwable;
  * A resource not found exception.
  */
 final class ResourceNotFoundException extends AbstractMessageRuntimeException implements
-    CanonicalAwareExceptionInterface,
+    HttpCanonicalAwareExceptionInterface,
     HttpAwareExceptionInterface
 {
     /**
