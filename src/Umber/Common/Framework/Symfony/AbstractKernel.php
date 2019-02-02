@@ -68,7 +68,7 @@ abstract class AbstractKernel extends SymfonyKernel
              *
              * @throws Exception due to loader failing.
              */
-            $services = function (string $root) use ($loader): void {
+            $services = static function (string $root) use ($loader): void {
                 $loader->load(sprintf('%s/{parameters}.%s', $root, self::EXTENSIONS), 'glob');
                 $loader->load(sprintf('%s/{parameters}.env.%s', $root, self::EXTENSIONS), 'glob');
                 $loader->load(sprintf('%s/{services}/*.%s', $root, self::EXTENSIONS), 'glob');
@@ -99,7 +99,7 @@ abstract class AbstractKernel extends SymfonyKernel
          *
          * @throws Exception due to loader failing.
          */
-        $routes = function (string $root) use ($collection): void {
+        $routes = static function (string $root) use ($collection): void {
             $collection->import(sprintf('%s/{routes}/*.%s', $root, self::EXTENSIONS), '/', 'glob');
         };
 
